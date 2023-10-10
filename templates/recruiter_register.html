@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Recruiter Registration</title>
+</head>
+<body>
+    <h2>Register as Recruiter</h2>
+    <form method="POST" action="/register/recruiter">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required><br><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br><br>
+
+        <label for="company">Company Name:</label>
+        <input type="text" id="company" name="company" required><br><br>
+
+        <label for="email">Contact Email:</label>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <input type="submit" value="Register">
+    </form>
+<p>Already have an account ?<a href="/login">Login in here</a></p>
+</body>
+</html>

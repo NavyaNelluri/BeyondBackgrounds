@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registration</title>
+</head>
+<body>
+    <h1>Welcome to the BeyondBackgrounds Portal</h1>
+
+    {% with messages = get_flashed_messages() %}
+        
+    {% endwith %}
+
+    <h2>Register/login as:</h2>
+    <a href="/register/recruiter" style="font-size: 24px;">Recruiter</a> |
+    <a href="/register/applicant" style="font-size: 24px;">Job Applicant</a>
+</body>
+</html>

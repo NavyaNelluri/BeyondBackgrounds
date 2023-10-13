@@ -33,9 +33,9 @@ All three of us participated and discussed.
 
 ## Held on: 10/12/2023
 ## Meeting held on:  class time
-Meeting lasted for 10mins. 
+Meeting lasted for 30mins. 
 ## Meeting Notes:
-1.	review doccument
+1.	review doccument.
 2.retrospective doccument
 3.	What will be done: Sprint-1 deployement
 ## Meeting Attendance:

@@ -1,22 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - BeyondBackgrounds</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
 </head>
 <body>
-    <h2>Login</h2>
-    <form method="POST" action="/login">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required><br><br>
-        
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required><br><br>
-        
-        <input type="submit" value="Login">
-    </form>
-    <p>Don't have an account? <a href="/register/applicant">Register here as applicant</a></p>
-	<p>Don't have an account? <a href="/register/recruiter">Register here as recruiter</a></p>
+    <img class="header-image" src="{{ url_for('static', filename='pic2.jpg') }}" alt="Beyond Backgrounds Image">
+    
+    <div class="scrolling-title">Beyond Backgrounds</div>
 
+    <div class="container">
+        <h2>Login Here</h2>
+        <form method="POST" action="/register/recruiter">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <input type="submit" value="Login">
+        </form>
+        <p>Don't have an account? <a href="/login">Register here</a></p>
+    </div>
 </body>
 </html>
-

@@ -9,7 +9,7 @@ users = []
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('home.html')
 
 @app.route('/register/<user_type>', methods=['GET', 'POST'])
 def register(user_type):
@@ -69,6 +69,32 @@ def login():
             flash('Login failed. Please check your username and password.', 'danger')
 
     return render_template('login.html')
+@app.route('/about')
+def about():
+    return render_template('about.html')
+@app.route('/home')
+def home():
+    return render_template('home.html')
+@app.route('/register/applicant', methods=['GET', 'POST'])
+def register_applicant():
+    if request.method == 'POST':
+        # Registration logic for job applicants
+        username = request.form['username']
+        password = request.form['password']
+
+        # Check if the username is already taken (in a real application, use a database)
+        if any(user['username'] == username for user in users):
+            flash('Username already exists. Please choose another.', 'danger')
+        else:
+            # Store the user data (in a real application, use a database)
+            hashed_password = generate_password_hash(password)
+            users.append({'username': username, 'password': hashed_password})
+            flash('Job applicant registration successful.', 'success')
+            return redirect(url_for('index'))
+    else:
+        flash('Invalid user type.', 'danger')
+        return render_template('applicant_register.html')
+
 
 @app.route('/logout')
 def logout():

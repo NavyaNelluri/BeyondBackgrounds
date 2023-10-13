@@ -23,8 +23,20 @@ All three of us participated and discussed.
 Meeting lasted for 10mins. 
 ## Meeting Notes:
 1.	jira update is missing. We discussed to prioritize it.
-6.	What done: login page of applicant and recruiter is developed.
-7.	What will be done: some storage either till html level should be developed. login page should be same for both recruiter and applicant
-8.	Blocker: authentication at this level, hope we will be doing at the end of sprint
+2	What done: login page of applicant and recruiter is developed.
+3.	What will be done: some storage either till html level should be developed. login page should be same for both recruiter and applicant
+4.	Blocker: authentication at this level, hope we will be doing at the end of sprint
+## Meeting Attendance:
+All three of us participated and discussed.
+
+# Meeting-3:
+
+## Held on: 10/12/2023
+## Meeting held on:  class time
+Meeting lasted for 10mins. 
+## Meeting Notes:
+1.	review doccument
+2.retrospective doccument
+3.	What will be done: Sprint-1 deployement
 ## Meeting Attendance:
 All three of us participated and discussed.

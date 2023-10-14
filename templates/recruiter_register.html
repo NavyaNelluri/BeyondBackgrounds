@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - BeyondBackgrounds</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='register.css') }}">
+</head>
+<body>
+    <!-- Header Image (replace 'pic2.jpg' with your image filename) -->
+    <img class="header-image" src="{{ url_for('static', filename='Wallpaper.jpg') }}" alt="Beyond Backgrounds Image">
+    
+    <!-- Title text (replace 'Beyond Backgrounds' with your desired title) -->
+    <div class="scrolling-title">Beyond Backgrounds</div>
+    <div class="navigation">
+        <ul>
+            <li><a href="/home">Home</a></li>
+            <li><a href="/login">Login</a></li>
+            <li><a href="/register/recruiter">Recruiter Register</a></li>
+            <li><a href="/register/applicant">Applicant Register</a></li>
+            <li><a href="/about">About</a></li>
+        </ul>
+    </div>
+    <div class="container">
+        <h2>Register as Recruiter</h2>
+        <form method="POST" action="/register/recruiter">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <label for="company">Company Name:</label>
+                <input type="text" id="company" name="company" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Contact Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <input type="submit" value="Register">
+        </form>
+        <p>Already have an account? <a href="/login">Login here</a></p>
+    </div>
+</body>
+</html>

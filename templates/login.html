@@ -4,14 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - BeyondBackgrounds</title>
+    <!-- css file for login page -->
     <link rel="stylesheet" href="{{ url_for('static', filename='register.css') }}">
 </head>
 <body>
-    <!-- Image (replace 'image-url.jpg' with your image URL) -->
-    <img class="header-image" src="{{ url_for('static', filename='pic2.jpg') }}" alt="Beyond Backgrounds Image">
+    <!-- Background image for login page) -->
+    <img class="header-image" src="{{ url_for('static', filename='Wallpaper.jpg') }}" alt="Beyond Backgrounds Image">
     
-    <!-- Title text (replace 'Beyond Backgrounds' with your desired title) -->
+    <!-- Scrolling title -->
     <div class="scrolling-title">Beyond Backgrounds</div>
+
+    <!-- Navigation links for other pages  -->
     <div class="navigation">
         <ul>
 			<li><a href="/home">Home</a></li>
@@ -21,6 +24,7 @@
             <li><a href="/about">About</a></li>
         </ul>
     </div>
+    <!-- User input fields and login button  -->
     <div class="container">
         <h2>Login here</h2>
         <form method="POST" action="/register/recruiter">

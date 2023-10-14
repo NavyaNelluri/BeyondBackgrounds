@@ -1,0 +1,131 @@
+/* Style for the image (adjust width and height) */
+.header-image {
+    width: 1400px;
+    height: 600px;
+    position: relative;
+    margin-top: -50px;
+    z-index: -1; /* Bring the container to the foreground */
+}
+
+/* Style for the title text */
+.scrolling-title {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 42px;
+    font-weight: bold;
+    padding: 10px;
+    animation: scrollTitle 5s linear infinite;
+    color: #000; /* Set the text color to black */
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.9); /* Add a shadow effect for visibility */
+}
+
+
+@keyframes scrollTitle {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #F0F0F0;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    background-color: #FFFFFF;
+    border: 1px solid #CCC;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    text-align: center;
+    transform: translate(-10%, -50%); /* Adjust the left value to move it to the right */
+    z-index: 1; /* Bring the container to the foreground */
+}
+
+h2 {
+    color: #333;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.form-group {
+    margin: 15px 0;
+    text-align: left;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    color: #333;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #CCC;
+    border-radius: 4px;
+}
+
+input[type="submit"] {
+    background-color: #007BFF;
+    color: #FFF;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #0056B3;
+}
+
+p {
+    margin-top: 10px;
+}
+
+a {
+    text-decoration: none;
+    color: #007BFF;
+}
+/*all*/
+
+
+        .navigation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.7); /* Adjust background color and opacity */
+            z-index: 1;
+            display: flex; /* Display navigation links horizontally */
+            justify-content: center; /* Center the links horizontally */
+            padding: 10px 0; /* Add some vertical spacing to the links */
+        }
+        .navigation ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .navigation li {
+            display: inline;
+            margin: 0 20px; /* Adjust horizontal spacing between links */
+        }
+        .navigation a {
+            text-decoration: none;
+            color: #000; /* Default link color */
+            font-weight: bold;
+            transition: color 0.3s; /* Add a smooth color transition */
+        }
+        .navigation a:hover {
+            color: #00f; /* Link color on hover */
+        }

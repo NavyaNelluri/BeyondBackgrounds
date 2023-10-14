@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: red;
+    background-color: #red;
     margin: 0;
     padding: 0;
 }
@@ -37,7 +37,8 @@ label {
 }
 
 input[type="text"],
-input[type="password"] {
+input[type="password"],
+input[type="email"] {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;

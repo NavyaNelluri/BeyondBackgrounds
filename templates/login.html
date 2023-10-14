@@ -3,16 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - BeyondBackgrounds</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='login_page.css') }}">
+    <title>Register - BeyondBackgrounds</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='register.css') }}">
 </head>
 <body>
-    <img class="header-image" src="{{ url_for('static', filename='poster.jpg') }}" alt="Beyond Backgrounds Image">
+    <!-- Image (replace 'image-url.jpg' with your image URL) -->
+    <img class="header-image" src="{{ url_for('static', filename='pic2.jpg') }}" alt="Beyond Backgrounds Image">
     
+    <!-- Title text (replace 'Beyond Backgrounds' with your desired title) -->
     <div class="scrolling-title">Beyond Backgrounds</div>
-
+    <div class="navigation">
+        <ul>
+			<li><a href="/home">Home</a></li>
+            <li><a href="/login">Login</a></li>
+            <li><a href="/register/recruiter">Recruiter Register</a></li>
+            <li><a href="/register/applicant">Applicant Register</a></li>
+            <li><a href="/about">About</a></li>
+        </ul>
+    </div>
     <div class="container">
-        <h2>Login Here</h2>
+        <h2>Login here</h2>
         <form method="POST" action="/register/recruiter">
             <div class="form-group">
                 <label for="username">Username:</label>
@@ -24,7 +34,6 @@
             </div>
             <input type="submit" value="Login">
         </form>
-        <p>Don't have an account? <a href="/login">Register here</a></p>
     </div>
 </body>
 </html>

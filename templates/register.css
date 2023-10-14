@@ -1,3 +1,4 @@
+
 /* Reset some default styles for the body element */
 body {
     font-family: Arial, sans-serif;
@@ -5,6 +6,7 @@ body {
     margin: 0;
     padding: 0;
 }
+
 
 /* Style for the main container */
 .container {
@@ -19,6 +21,7 @@ body {
     text-align: center;
 }
 
+
 /* Style for the heading */
 h2 {
     color: #333;
@@ -29,11 +32,13 @@ form {
     margin-top: 20px;
 }
 
+
 /* Style for form groups within the form */
 .form-group {
     margin: 10px 0;
     text-align: left;
 }
+
 
 /* Style for labels within form groups */
 label {
@@ -41,6 +46,7 @@ label {
     font-weight: bold;
     color: #333;
 }
+
 
 /* Style for text, password, and email input fields */
 input[type="text"],
@@ -52,6 +58,7 @@ input[type="email"] {
     border-radius: 4px;
 }
 
+
 /* Style for the submit button */
 input[type="submit"] {
     background-color: #007BFF;
@@ -62,15 +69,18 @@ input[type="submit"] {
     cursor: pointer;
 }
 
+
 /* Style for the submit button on hover */
 input[type="submit"]:hover {
     background-color: #0056b3;
 }
 
+
 /* Style for paragraphs within the container */
 p {
     margin-top: 10px;
 }
+
 
 /* Style for links within the container */
 a {

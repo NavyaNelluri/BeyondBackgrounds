@@ -19,21 +19,32 @@
             <li><a href="/register/recruiter">Recruiter Register</a></li>
             <li><a href="/register/applicant">Applicant Register</a></li>
             <li><a href="/about">About</a></li>
+			<li><a href="/Recruiter_home">Recruiter Portal</a></li>
+
         </ul>
     </div>
     <div class="container">
         <h2>Register as Recruiter</h2>
+		{% with messages = get_flashed_messages(with_categories=true) %}
+            {% for category, message in messages %}
+                {% if category == 'success' %}
+                    <div class="alert alert-success">
+                        {{ message }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endwith %}
         <form method="POST" action="/register/recruiter">
             <div class="form-group">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required>
+                <label for="username_form">Username:</label>
+                <input type="text" id="username_form" name="username_form" required>
             </div>
             <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required>
+                <label for="password_form">Password:</label>
+                <input type="password_form" id="password_form" name="password_form" required>
             </div>
             <div class="form-group">
-                <label for="company">Company Name:</label>
+                <label for="company">Company Name:</label> 
                 <input type="text" id="company" name="company" required>
             </div>
             <div class="form-group">

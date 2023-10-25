@@ -52,6 +52,11 @@ def register(user_type):
     else:
         flash('Invalid user type.', 'danger')
         return redirect(url_for('index'))
+    
+@app.route('/user_details')
+def user_details():
+    return render_template('user_details.html')
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -104,4 +109,5 @@ def logout():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
 

@@ -116,6 +116,7 @@ def Recruiter_home():
 def JobPostingsPage():
     return render_template('JobPostings.html')
 
+
 @app.route('/home')
 def home():
     return render_template('home.html')
@@ -166,12 +167,10 @@ def job_postings():
 INSERT INTO JobDetails (CompanyName, Locations, Email, JobPosition, Salary, Benefits, shift_timings, OffenceExemptions, Notes, mandat_criminal_record)
 VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
 """         
-            print("hi")
-
             # Execute the query with parameters
             cursor.execute(query, (
-                company_name, locations, 'l', job_position, salary, benefits,
-                shift_timings, offence_exemptions, notes, 'y'
+                company_name, locations, email, job_position, salary, benefits,
+                shift_timings, offence_exemptions, notes, str(mandat_criminal_record)
             ))
             cursor.close()
 
@@ -189,15 +188,26 @@ VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
             flash('An error occurred. Please try again later.', 'error')
 
     return redirect(url_for('JobPostingsPage'))
+@app.route('/JobPortal')
+def JobPortal():
+    print("hi")
+    try:
+        # Create a Snowflake connection
+        conn = create_snowflake_connection()
 
+        # Execute an SQL select statement using the Snowflake connection
+        cursor = conn.cursor()
+        query = "SELECT * FROM JobDetails"
+        cursor.execute(query)
+        jobs = cursor.fetchall()
 
-
-
-
-
-
-
-
-
+        cursor.close()
+        conn.close()
+        print(jobs)
+        return render_template('JobPortal.html', jobs=jobs)
+    except Exception as e:
+        print(e)
+        app.logger.error(f"An error occurred: {str(e)}")
+        flash('An error occurred. Please try again later.', 'error')
 if __name__ == '__main__':
     app.run(debug=True)

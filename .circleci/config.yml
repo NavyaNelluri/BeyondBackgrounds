@@ -15,11 +15,7 @@ jobs:
             apt-get update
             apt-get install -y python3 libssl-dev
             pip install pytest snowflake-connector-python flask
-      - run:
-    name: "Debug Environment"
-    command: |
-      env  # Print environment variables
-      ldd $(which python)  # Check shared library dependencies for Python
+
 
       - run:
           name: "Install Cryptographic Libraries"

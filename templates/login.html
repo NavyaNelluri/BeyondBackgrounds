@@ -27,7 +27,7 @@
     <!-- User input fields and login button  -->
     <div class="container">
         <h2>Login here</h2>
-        <form method="POST" action="/register/recruiter">
+        <form method="POST" action="/login">
             <div class="form-group">
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" required>
@@ -39,5 +39,12 @@
             <input type="submit" value="Login">
         </form>
     </div>
+    {% if success_message %}
+        <p>{{ success_message }}</p>
+    {% endif %}
+
+    {% if error_message %}
+        <p>{{ error_message }}</p>
+    {% endif %}
 </body>
 </html>

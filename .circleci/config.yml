@@ -19,7 +19,7 @@ jobs:
           command: "echo Hello, World!"
       - run:
           name: "Run pytest"
-          command: "pytest test.py"
+          command: "python test.py"
 
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows

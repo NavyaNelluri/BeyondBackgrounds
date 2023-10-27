@@ -2,7 +2,7 @@ from flask import Flask, request
 import snowflake.connector
 
 app = Flask(__name__)
-app.secret_key = 'your_secret_key' 
+app.secret_key = 'navya' 
 
 def create_snowflake_connection():
     snowflake_config = {

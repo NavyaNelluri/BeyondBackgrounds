@@ -13,6 +13,12 @@ jobs:
             apt-get install -y libssl-dev  # Install libssl-dev (which provides libcrypto)
             pip install pytest snowflake-connector-python flask
       - run:
+    name: "Install Cryptographic Libraries (with Debugging)"
+    command: |
+      apt-get update
+      apt-get install -y libssl-dev
+      echo "Installed libssl-dev successfully"
+- run:
           name: "Install Cryptographic Libraries"
           command: "apt-get install -y libssl-dev"
       - run:

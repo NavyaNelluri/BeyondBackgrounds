@@ -16,6 +16,9 @@ jobs:
             apt-get install -y python3 libssl-dev
             pip install pytest snowflake-connector-python flask
       - run:
+          name: "Install Cryptographic Libraries"
+          command: "apt-get install -y libssl-dev"
+      - run:
           name: "Update Python Packages"
           command: "pip install --upgrade oscrypto snowflake-connector-python"
 

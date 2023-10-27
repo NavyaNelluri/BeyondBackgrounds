@@ -4,6 +4,7 @@ import snowflake.connector
 app = Flask(__name__)
 app.secret_key = 'navya'
 
+app.error_message = None
 
 # Function to create a Snowflake connection
 def create_snowflake_connection():
@@ -37,10 +38,9 @@ def login():
             # Successful login
             return redirect(url_for('dashboard'))
         else:
-            # Invalid credentials
-            flash('Invalid username or password', 'error')
+            app.error_message = 'Invalid username or password'
 
-    return render_template('login.html')
+    return render_template('login.html', error_message=app.error_message)
 
 def check_credentials(username, password):
     try:

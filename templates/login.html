@@ -39,12 +39,12 @@
             <input type="submit" value="Login">
         </form>
     </div>
-    {% if success_message %}
-        <p>{{ success_message }}</p>
-    {% endif %}
-
     {% if error_message %}
-        <p>{{ error_message }}</p>
-    {% endif %}
+    <script>
+        window.onload = function() {
+            alert("{{ error_message }}");
+        };
+    </script>
+{% endif %}
 </body>
 </html>

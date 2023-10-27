@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   say-hello:
     docker:
-      - image: python:3.8
+      - image: python:3.9
     steps:
       - checkout
       - run:
@@ -15,6 +15,10 @@ jobs:
             apt-get update
             apt-get install -y python3 libssl-dev
             pip install pytest snowflake-connector-python flask
+      - run:
+          name: "Update Python Packages"
+          command: "pip install --upgrade oscrypto snowflake-connector-python"
+
       - run:
           name: "Run pytest"
           command: "pytest test.py"

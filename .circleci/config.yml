@@ -28,7 +28,9 @@ jobs:
       - run:
           name: "Install snowflake"
           command: "pip install snowflake-connector-python"
-                
+      - run:
+          name: "Install flask"
+          command: "pip install flask"        
       - run:
           name: "Run pytest"
           command: "pytest test.py"

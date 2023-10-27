@@ -30,7 +30,11 @@ jobs:
           command: "pip install snowflake-connector-python"
       - run:
           name: "Install flask"
-          command: "pip install flask"        
+          command: "pip install flask" 
+      - run:
+          name: Install Dependencies
+          command: apt-get update && apt-get install -y libssl-dev
+
       - run:
           name: "Run pytest"
           command: "pytest test.py"

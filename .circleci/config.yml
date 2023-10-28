@@ -10,16 +10,7 @@ jobs:
           name: "Install Dependencies"
           command: |
             apt-get update
-     - run:
-          name: "Update Python Packages"
-          command: "pip install pytest"    
-      - run:
-          name: "Update Python Packages"
-          command: "pip install flask"  
-      - run:
-          name: "Update Python Packages"
-          command: "pip install snowflake-connector-python==2.6.2"
-
+            pip install pytest flask snowflake-connector-python==2.6.2
       - run:
           name: "Run pytest"
           command: "pytest test.py"

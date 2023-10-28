@@ -1,12 +1,10 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
-from werkzeug.security import generate_password_hash, check_password_hash
 import snowflake.connector
 
 app = Flask(__name__)
 app.secret_key = 'navya'  # Replace with your own secret key
 
-# Mock user data (replace with a database)
-users = []
+
 
 # Function to create a Snowflake connection
 def create_snowflake_connection():

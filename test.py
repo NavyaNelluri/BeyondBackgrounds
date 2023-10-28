@@ -1,7 +1,7 @@
 import pytest
-<<<<<<< HEAD
 import snowflake.connector
 from app import create_snowflake_connection
+import app
 
 
 # Define your Snowflake connection parameters for testing 
@@ -22,12 +22,6 @@ def test_snowflake_connection():
     except Exception as e:
         pytest.fail(f"Snowflake Connection Error: {str(e)}")
 
-
-
-if __name__ == "__main__":
-    pytest.main()
-=======
-import app
 
 
 #Test case to test the success scenario of login page
@@ -51,5 +45,3 @@ def test_check_credentials_fail():
     assert(result,False)
 
 
-
->>>>>>> 5aa57d8e9a8e1792a6ebe0acf101024967b67fda

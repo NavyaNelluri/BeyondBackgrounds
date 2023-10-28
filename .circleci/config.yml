@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   say-hello:
     docker:
-      - image: debian:bookworm-slim  # Use Debian Bookworm as the base image
+      - image: python:3.8-bullseye  # Use the official Python image based on Debian Bullseye
     steps:
       - checkout
       - run:

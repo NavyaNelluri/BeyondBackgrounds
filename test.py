@@ -1,3 +1,4 @@
+
 import pytest
 import snowflake.connector
 from app import create_snowflake_connection  # Import your app's function
@@ -62,3 +63,4 @@ def test_check_credentials_fail():
 
 if __name__ == "__main__":
     pytest.main()
+

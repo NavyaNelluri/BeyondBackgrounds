@@ -2,10 +2,9 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 import snowflake.connector
 
 app = Flask(__name__)
-app.secret_key = 'navya'  # Replace with your own secret key
+app.secret_key = 'navya'
 
-# Mock user data (replace with a database)
-users = []
+app.error_message = None
 
 # Function to create a Snowflake connection
 def create_snowflake_connection():
@@ -64,12 +63,29 @@ def register(user_type):
 
         return render_template('recruiter_register.html')
 
+    
     elif user_type == 'applicant':
+        if request.method == 'POST':
+            # Registration logic for job applicants
+            username = request.form['username']
+            password = request.form['password']
+
+            # Check if the username is already taken (in a real application, use a database)
+            if any(user['username'] == username for user in users):
+                flash('Username already exists. Please choose another.', 'danger')
+            else:
+                # Store the user data (in a real application, use a database)
+                hashed_password = generate_password_hash(password)
+                users.append({'username': username, 'password': hashed_password})
+                flash('Job applicant registration successful.', 'success')
+                return redirect(url_for('user_details'))
+
         return render_template('applicant_register.html')
 
     else:
         flash('Invalid user type.', 'danger')
         return redirect(url_for('index'))
+
 
 #login page to enter username and password
 @app.route('/login', methods=['GET', 'POST'])
@@ -153,13 +169,13 @@ def job_postings():
             offence_exemptions = request.form['offenceExemptions']
             notes = request.form['notes']
             mandat_criminal_record = request.form['mandatCriminalRecord']
-
+ 
             # Create a new Snowflake connection
             conn = create_snowflake_connection()
-
+ 
             # Execute an SQL insert statement using the Snowflake connection
             cursor = conn.cursor()
-
+ 
             query = """
 INSERT INTO JobDetails (CompanyName, Locations, Email, JobPosition, Salary, Benefits, shift_timings, OffenceExemptions, Notes, mandat_criminal_record)
 VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
@@ -170,21 +186,23 @@ VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                 shift_timings, offence_exemptions, notes, str(mandat_criminal_record)
             ))
             cursor.close()
-
+ 
             # Commit the transaction
             conn.commit()
-
+ 
             # Close the Snowflake connection
             conn.close()
-
+ 
             flash('Job posting details added to Snowflake.', 'success')
-
+ 
         except Exception as e:
             print(e)
             app.logger.error(f"An error occurred: {str(e)}")
             flash('An error occurred. Please try again later.', 'error')
-
+ 
     return redirect(url_for('JobPostingsPage'))
+
+
 @app.route('/JobPortal')
 def JobPortal():
     print("hi")

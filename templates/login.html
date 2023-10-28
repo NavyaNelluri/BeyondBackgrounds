@@ -43,5 +43,15 @@
             <input type="submit" value="Login">
         </form>
     </div>
+
+    <!-- Alert on unsuccessful login  -->
+    {% if error_message %}
+    <script>
+        window.onload = function() {
+            alert("{{ error_message }}");
+        };
+    </script>
+{% endif %}
+
 </body>
 </html>

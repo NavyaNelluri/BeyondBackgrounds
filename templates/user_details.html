@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
+
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Details - BeyondBackgrounds</title>
@@ -18,7 +20,7 @@
             background-color: #fff;
             padding: 20px;
             border-radius: 5px;
-            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
             margin-top: 50px;
         }
 
@@ -31,7 +33,11 @@
             font-weight: bold;
         }
 
-        input[type="text"], input[type="email"], input[type="date"], input[type="number"], input[type="file"] {
+        input[type="text"],
+        input[type="email"],
+        input[type="date"],
+        input[type="number"],
+        input[type="file"] {
             width: calc(100% - 20px);
             padding: 10px;
             margin-top: 5px;
@@ -52,7 +58,21 @@
             background-color: #45a049;
         }
     </style>
+
+    <script>
+        function validateStep2() {
+            // Email validation
+            var email = document.getElementById('email').value;
+            var emailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+            if (!email.match(emailRegex)) {
+                alert("Please enter a valid Gmail address.");
+                return false; // Prevent form submission
+            }
+            return true; // Return true to submit the form
+        }
+    </script>
 </head>
+
 <body>
 
     <div class="container">
@@ -104,14 +124,6 @@
             <input type="submit" value="Submit">
         </form>
     </div>
-
-    <script>
-        function validateStep2() {
-            // You can add validation logic for step 2 fields here if needed
-            return true; // Return true to submit the form
-        }
-    </script>
 </body>
-</html>
 
-    
+</html>

@@ -115,7 +115,7 @@ def job_postings():
 
             # Execute an SQL insert statement using the Snowflake connection
             cursor = conn.cursor()
-            query = """INSERT INTO ApplicantDetails (username, password) VALUES (?, ?)"""
+            query = """INSERT INTO Applicants (username, password) VALUES (?, ?)"""
 
             # Execute the query with parameters
             cursor.execute(query, (username,password))

@@ -45,22 +45,20 @@ def test_snowflake_connection01():
         pytest.fail(f"Snowflake Connection Error: {str(e)}")
 
 
-# Test case for email field presence
-def test_email_field_presence():
-    email_field_exists = False
-    with open('login.html', 'r') as file:
+# Test case for user namefield presence
+def test_username():
+    username = False
+    with open('templates/applicant_register.html', 'r') as file:
         for line in file:
-            if 'id="email"' in line:
-                email_field_exists = True
+            if 'id="username"' in line:
+                username = True
                 break
-
-    if email_field_exists:
+    if username:
         print("passed")
     else:
         print("failed")
-
 # Running the test case
-test_email_field_presence()
+test_username()
 
 if __name__ == "__main__":
     pytest.main()

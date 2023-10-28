@@ -1,7 +1,7 @@
 import pytest
 import snowflake.connector
 from app import create_snowflake_connection  # Import your app's function
-
+import app
 
 
 

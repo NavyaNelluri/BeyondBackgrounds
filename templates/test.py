@@ -1,18 +1,14 @@
-# test.py
-
 # Test case for email field presence
-def test_email_field_presence():
+def test_username():
     email_field_exists = False
-    with open('index.html', 'r') as file:
+    with open('templates/applicant_register.html', 'r') as file:
         for line in file:
-            if 'id="email"' in line:
-                email_field_exists = True
+            if 'id="username"' in line:
+                username = True
                 break
-
-    if email_field_exists:
+    if username:
         print("passed")
     else:
         print("failed")
-
 # Running the test case
-test_email_field_presence()
+test_username()

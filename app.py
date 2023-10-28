@@ -78,64 +78,13 @@ def register(user_type):
 def user_details():
     return render_template('user_details.html')
 
-
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-
-        user = next((user for user in users if user['username'] == username), None)
-
-        if user and check_password_hash(user['password'], password):
-            session['user'] = user['username']
-            flash('Login successful.', 'success')
-            return redirect(url_for('index'))
-        else:
-            flash('Login failed. Please check your username and password.', 'danger')
-
-    return render_template('login.html')
 @app.route('/about')
 def about():
     return render_template('about.html')
 @app.route('/home')
 def home():
     return render_template('home.html')
-@app.route('/register/applicant', methods=['POST'])
-@app.route('/job_postings', methods=['POST'])
-def job_postings():
-    if request.method == 'POST':
-        try:
-            # Extract register from the form
-            username = request.form['username']
-            password = request.form['password']
-            
-            # Create a new Snowflake connection
-            conn = create_snowflake_connection()
 
-            # Execute an SQL insert statement using the Snowflake connection
-            cursor = conn.cursor()
-            query = """INSERT INTO Applicants (username, password) VALUES (?, ?)"""
-
-            # Execute the query with parameters
-            cursor.execute(query, (username,password))
-            cursor.close()
-
-            # Commit the transaction
-            conn.commit()
-
-            # Close the Snowflake connection
-            conn.close()
-
-            flash('Registrarion sucessfull', 'success')
-
-        except Exception as e:
-            print(e)
-            app.logger.error(f"An error occurred ")
-            flash('An error occurred. Please try again later.', 'error')
-
-    return redirect(url_for('user_details'))
-@app.route('/logout')
 def logout():
     session.pop('user', None)
     flash('You have been logged out.', 'info')

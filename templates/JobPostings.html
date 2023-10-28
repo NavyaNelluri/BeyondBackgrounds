@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Postings - BeyondBackgrounds</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='register.css') }}">
+    <style>
+        /* Global styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 200px auto; /* Adjust margin to your preference, centered */
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow-y: auto; /* Allow vertical scrolling if content exceeds the container */
+            max-height: 70vh; /* Adjust the maximum height as needed */
+			background-color: beige;
+
+        }
+
+        .header-image {
+            width: 100%;
+        }
+
+        .scrolling-title {
+            text-align: center;
+            font-size: 24px;
+            margin-top: 10px;
+        }
+
+        /* Form styles */
+        form {
+            padding: 20px;
+        }
+
+        .form-group {
+            margin: 10px 0;
+        }
+
+        /* Rest of the CSS remains the same */
+
+    </style>
+</head>
+<body>
+    <img class="header-image" src="{{ url_for('static', filename='Wallpaper.jpg') }}" alt="Beyond Backgrounds Image">
+    <div class="scrolling-title">Beyond Backgrounds</div>
+    <div class="navigation">
+        <ul>
+            <li><a href="/home">Home</a></li>
+            <li><a href="/login">Login</a></li>
+            <li><a href="/register/recruiter">Recruiter Register</a></li>
+            <li><a href="/register/applicant">Applicant Register</a></li>
+            <li><a href="/Recruiter_home">Recruiter Portal</a></li>
+            <li><a href="/JobPortal">Job Portal</a></li>
+            <li><a href="/about">About</a></li>
+
+
+        </ul>
+    </div>
+    <div class="container">
+        <h1>Job Postings</h1>
+        <form method="POST" action="/job_postings">
+ 
+
+
+
+            <div class="form-group">
+                <label for="companyName">Company Name:</label>
+                <input type="text" id="companyName" name="companyName" required>
+            </div>
+            <div class="form-group">
+                <label for="locations">Locations:</label>
+                <input type="text" id="locations" name="locations" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="jobPosition">Job Position:</label>
+                <input type="text" id="jobPosition" name="jobPosition" required>
+            </div>
+            <div class="form-group">
+                <label for="salary">Salary:</label>
+                <input type="text" id="salary" name="salary" required>
+            </div>
+            <div class="form-group">
+                <label for="benefits">Benefits:</label>
+                <input type="text" id="benefits" name="benefits" required>
+            </div>
+            <div class="form-group">
+                <label for="shiftTimings">Shift Timings:</label>
+                <input type="text" id="shiftTimings" name="shiftTimings" required>
+            </div>
+            <div class="form-group">
+                <label for="offenceExemptions">Offence Exemptions:</label>
+                <input type="text" id="offenceExemptions" name="offenceExemptions" required>
+            </div>
+            <div class="form-group">
+                <label for="notes">Notes:</label>
+                <textarea id="notes" name="notes" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="mandatCriminalRecord">Mandatory Criminal Record Check:</label>
+                <select id="mandatCriminalRecord" name="mandatCriminalRecord" required>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+   </div>
+</body>
+</html>

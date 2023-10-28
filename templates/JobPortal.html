@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Postings - BeyondBackgrounds</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='register.css') }}">
+	<style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        table {
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body>
+<img class="header-image" src="{{ url_for('static', filename='Wallpaper.jpg') }}" alt="Beyond Backgrounds Image">
+    <div class="scrolling-title">Beyond Backgrounds</div>
+    <div class="navigation">
+        <ul>
+            <li><a href="/home">Home</a></li>
+            <li><a href="/login">Login</a></li>
+            <li><a href="/register/recruiter">Recruiter Register</a></li>
+            <li><a href="/register/applicant">Applicant Register</a></li>
+            <li><a href="/Recruiter_home">Recruiter Portal</a></li>
+            <li><a href="/about">About</a></li>
+
+        </ul>
+    </div>
+    <h1>Job Portal</h1>
+    <table>
+        <tr>
+            <th>Company Name</th>
+            <th>Locations</th>
+            <th>Email</th>
+            <th>Job Position</th>
+            <th>Salary</th>
+            <th>Benefits</th>
+            <th>Shift Timings</th>
+            <th>Offence Exemptions</th>
+            <th>Notes</th>
+            <th>Mandatory Criminal Record</th>
+        </tr>
+        {% for job in jobs %}
+        <tr>
+            <td>{{ job[0] }}</td>
+            <td>{{ job[1] }}</td>
+            <td>{{ job[2] }}</td>
+            <td>{{ job[3] }}</td>
+            <td>{{ job[4] }}</td>
+            <td>{{ job[5] }}</td>
+            <td>{{ job[6] }}</td>
+            <td>{{ job[7] }}</td>
+            <td>{{ job[8] }}</td>
+            <td>{{ job[9] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

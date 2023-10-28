@@ -21,17 +21,13 @@
             <li><a href="/login">Login</a></li>
             <li><a href="/register/recruiter">Recruiter Register</a></li>
             <li><a href="/register/applicant">Applicant Register</a></li>
-			<li><a href="/Recruiter_home">Recruiter Portal</a></li>
-			<li><a href="/JobPortal">Job Portal</a></li>
-			<li><a href="/about">About</a></li>
-
-
+            <li><a href="/about">About</a></li>
         </ul>
     </div>
     <!-- User input fields and login button  -->
     <div class="container">
         <h2>Login here</h2>
-        <form method="POST" action="/register/recruiter">
+        <form method="POST" action="/login">
             <div class="form-group">
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" required>
@@ -43,5 +39,15 @@
             <input type="submit" value="Login">
         </form>
     </div>
+
+    <!-- Alert on unsuccessful login  -->
+    {% if error_message %}
+    <script>
+        window.onload = function() {
+            alert("{{ error_message }}");
+        };
+    </script>
+{% endif %}
+
 </body>
 </html>

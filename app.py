@@ -1,107 +1,74 @@
-from flask import Flask, render_template, request, redirect, url_for, session, flash
-from werkzeug.security import generate_password_hash, check_password_hash
+from flask import Flask, request, render_template, redirect, url_for
+import snowflake.connector
 
 app = Flask(__name__)
-app.secret_key = 'navya'  # Replace with your own secret key
+app.secret_key = 'navya'
 
-# Mock user data (replace with a database)
-users = []
+app.error_message = None
 
-@app.route('/')
-def index():
-    return render_template('home.html')
+# Function to create a Snowflake connection
+def create_snowflake_connection():
+    snowflake_config = {
+        'account': 'anohoex-igb93598',
+        'user': 'BEYONDBACKGROUNDS',
+        'password': 'Beyondpswd1',
+        'warehouse': 'COMPUTE_WH',
+        'database': 'BEYONDBACKGROUNDS',
+        'schema': 'SCH_BEYONDBACKGROUNDS',
+        'role': 'ACCOUNTADMIN'
+    }
+    print("Snowflake Configuration:", snowflake_config)
 
-@app.route('/register/<user_type>', methods=['GET', 'POST'])
-def register(user_type):
-    if user_type == 'recruiter':
-        if request.method == 'POST':
-            # Registration logic for recruiters
-            username = request.form['username']
-            password = request.form['password']
+    try:
+        conn = snowflake.connector.connect(**snowflake_config)
+        return conn
+    except Exception as e:
+        print("Snowflake Connection Error:", str(e))  
+        raise e
 
-            # Check if the username is already taken (in a real application, use a database)
-            if any(user['username'] == username for user in users):
-                flash('Username already exists. Please choose another.', 'danger')
-            else:
-                # Store the user data (in a real application, use a database)
-                hashed_password = generate_password_hash(password)
-                users.append({'username': username, 'password': hashed_password})
-                flash('Recruiter registration successful.', 'success')
-                return redirect(url_for('index'))
-
-        return render_template('recruiter_register.html')
-
-    elif user_type == 'applicant':
-        if request.method == 'POST':
-            # Registration logic for job applicants
-            username = request.form['username']
-            password = request.form['password']
-
-            # Check if the username is already taken (in a real application, use a database)
-            if any(user['username'] == username for user in users):
-                flash('Username already exists. Please choose another.', 'danger')
-            else:
-                # Store the user data (in a real application, use a database)
-                hashed_password = generate_password_hash(password)
-                users.append({'username': username, 'password': hashed_password})
-                flash('Job applicant registration successful.', 'success')
-                return redirect(url_for('index'))
-
-        return render_template('applicant_register.html')
-
-    else:
-        flash('Invalid user type.', 'danger')
-        return redirect(url_for('index'))
-
+#login page to enter username and password
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-
-        user = next((user for user in users if user['username'] == username), None)
-
-        if user and check_password_hash(user['password'], password):
-            session['user'] = user['username']
-            flash('Login successful.', 'success')
-            return redirect(url_for('index'))
+        
+        # Check the database for the username and password
+        if check_credentials(username, password):
+            #Redirects to Dashboard on successful login
+            return redirect(url_for('dashboard'))
         else:
-            flash('Login failed. Please check your username and password.', 'danger')
+            app.error_message = 'Invalid username or password'
 
-    return render_template('login.html')
-@app.route('/about')
-def about():
-    return render_template('about.html')
-@app.route('/home')
-def home():
-    return render_template('home.html')
-@app.route('/register/applicant', methods=['GET', 'POST'])
-def register_applicant():
-    if request.method == 'POST':
-        # Registration logic for job applicants
-        username = request.form['username']
-        password = request.form['password']
+    return render_template('login.html', error_message=app.error_message)
 
-        # Check if the username is already taken (in a real application, use a database)
-        if any(user['username'] == username for user in users):
-            flash('Username already exists. Please choose another.', 'danger')
+#Checks the provided crendentials for authentication
+def check_credentials(username, password):
+    try:
+        #Database connection establishment 
+        conn = create_snowflake_connection()
+        cursor = conn.cursor()
+
+        #Execute the query
+        query = "SELECT * FROM UserDetails WHERE USERNAME = %s AND PASSWORD = %s"
+        cursor.execute(query, (username, password))
+
+        #Fetch the results
+        results = cursor.fetchall()
+        cursor.close()
+
+        if results:
+            return True
         else:
-            # Store the user data (in a real application, use a database)
-            hashed_password = generate_password_hash(password)
-            users.append({'username': username, 'password': hashed_password})
-            flash('Job applicant registration successful.', 'success')
-            return redirect(url_for('index'))
-    else:
-        flash('Invalid user type.', 'danger')
-        return render_template('applicant_register.html')
+            return False
+    except Exception as e:
+        print(e)
+        return False
 
-
-@app.route('/logout')
-def logout():
-    session.pop('user', None)
-    flash('You have been logged out.', 'info')
-    return redirect(url_for('index'))
+#Redirects to Dashboard
+@app.route('/dashboard')
+def dashboard():
+    return 'Welcome to the Beyond Backgrounds'
 
 if __name__ == '__main__':
     app.run(debug=True)
-

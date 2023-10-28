@@ -10,7 +10,9 @@ jobs:
           name: "Install Dependencies"
           command: |
             apt-get update
-            pip install pytest flask snowflake-connector-python==2.6.2
+            apt-get install -y libssl-dev  # Install libssl-dev (which provides libcrypto)
+            pip install pytest flask
+            pip install snowflake-connector-python==2.6.2  # Specify the version you need
       - run:
           name: "Run pytest"
           command: "pytest test.py"

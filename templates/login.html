@@ -39,6 +39,8 @@
             <input type="submit" value="Login">
         </form>
     </div>
+
+    <!-- Alert on unsuccessful login  -->
     {% if error_message %}
     <script>
         window.onload = function() {
@@ -46,5 +48,6 @@
         };
     </script>
 {% endif %}
+
 </body>
 </html>

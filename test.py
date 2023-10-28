@@ -1,7 +1,9 @@
+
 import pytest
 import snowflake.connector
-from app import create_snowflake_connection
+from app import create_snowflake_connection  # Import your app's function
 import app
+
 
 
 # Define your Snowflake connection parameters for testing 
@@ -23,6 +25,20 @@ def test_snowflake_connection():
         pytest.fail(f"Snowflake Connection Error: {str(e)}")
 
 
+# Test case for user namefield presence
+def test_username():
+    username = False
+    with open('templates/applicant_register.html', 'r') as file:
+        for line in file:
+            if 'id="username"' in line:
+                username = True
+                break
+    if username:
+        print("passed")
+    else:
+        print("failed")
+# Running the test case
+test_username()
 
 #Test case to test the success scenario of login page
 def test_check_credentials_pass():
@@ -44,4 +60,7 @@ def test_check_credentials_fail():
 
     assert(result,False)
 
+
+if __name__ == "__main__":
+    pytest.main()
 

@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-from flask import Flask, render_template, request, redirect, url_for, session, flash
-=======
 from flask import Flask, request, render_template, redirect, url_for
->>>>>>> 5aa57d8e9a8e1792a6ebe0acf101024967b67fda
 import snowflake.connector
 
 app = Flask(__name__)
@@ -21,7 +17,6 @@ def create_snowflake_connection():
         'schema': 'SCH_BEYONDBACKGROUNDS',
         'role': 'ACCOUNTADMIN'
     }
-<<<<<<< HEAD
 
     try:
         conn = snowflake.connector.connect(**snowflake_config)
@@ -134,7 +129,6 @@ VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                 shift_timings, offence_exemptions, notes, str(mandat_criminal_record)
             ))
             cursor.close()
-=======
     print("Snowflake Configuration:", snowflake_config)
 
     try:

@@ -71,43 +71,6 @@ def register(user_type):
         flash('Invalid user type.', 'danger')
         return redirect(url_for('index'))
 
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    print("hi")
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        
-        # Check the database for the record based on username and password
-        if check_credentials(username, password):
-            # Successful login
-            return redirect(url_for('dashboard'))
-        else:
-            # Invalid credentials
-            flash('Invalid username or password', 'error')
-
-    return render_template('login.html')
-
-def check_credentials(username, password):
-    try:
-        # Create a new Snowflake connection
-        conn = create_snowflake_connection()
-
-        # Execute an SQL query to check the credentials
-        cursor = conn.cursor()
-        query = "SELECT * FROM UserDetails WHERE USERNAME = %s AND PASSWORD = %s"
-        cursor.execute(query, (username, password))
-
-        results = cursor.fetchall()
-        cursor.close()
-
-        if results:
-            return True
-        else:
-            return False
-    except Exception as e:
-        print(e)
-        return False
 
 @app.route('/dashboard')
 def dashboard():

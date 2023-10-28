@@ -63,13 +63,28 @@ def register(user_type):
 
         return render_template('recruiter_register.html')
 
+    
     elif user_type == 'applicant':
+        if request.method == 'POST':
+            # Registration logic for job applicants
+            username = request.form['username']
+            password = request.form['password']
+
+            # Check if the username is already taken (in a real application, use a database)
+            if any(user['username'] == username for user in users):
+                flash('Username already exists. Please choose another.', 'danger')
+            else:
+                # Store the user data (in a real application, use a database)
+                hashed_password = generate_password_hash(password)
+                users.append({'username': username, 'password': hashed_password})
+                flash('Job applicant registration successful.', 'success')
+                return redirect(url_for('user_details'))
+
         return render_template('applicant_register.html')
 
     else:
         flash('Invalid user type.', 'danger')
         return redirect(url_for('index'))
-
 
 @app.route('/dashboard')
 def dashboard():

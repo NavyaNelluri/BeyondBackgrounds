@@ -16,7 +16,21 @@ jobs:
           name: "Run pytest"
           command: "pytest test.py"
 
+  start-flask-backend:
+    steps:
+      - checkout
+      - run:
+          name: Start Flask Backend
+          command: |
+            python app.py &
+            sleep 5 # Waits for the Flask server to start
+            xdg-open http://127.0.0.1:5000
+
 workflows:
-  say-hello-workflow:
+  build-test-and-deploy:
     jobs:
       - say-hello
+      - start-flask-backend:
+          branches:
+            only:
+              - main

@@ -127,6 +127,30 @@ def check_credentials(username, password):
     except Exception as e:
         print(e)
         return False
+    
+#Checks the provided crendentials for authentication
+def get_usertype(username):
+    try:
+        # Database connection establishment 
+        conn = create_snowflake_connection()
+        cursor = conn.cursor()
+
+        # Execute the query
+        query = "SELECT usertype FROM UserDetails WHERE USERNAME = %s"
+        cursor.execute(query, (username,))
+
+        # Fetch the usertype from the result
+        result = cursor.fetchone()
+
+        cursor.close()
+
+        if result:
+            return result[0]  # Return the usertype
+        else:
+            return None  # No result found for the username
+    except Exception as e:
+        print(e)
+        return None
 
 @app.route('/dashboard')
 def dashboard():

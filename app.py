@@ -157,7 +157,9 @@ def Applicant_home():
 @app.route('/JobPostings')
 def JobPostingsPage():
     return render_template('JobPostings.html')
-
+@app.route('/ApplicantDetails')
+def ApplicantDetailsPage():
+    return render_template('ApplicantDetails.html')
 
 @app.route('/home')
 def home():
@@ -211,10 +213,57 @@ VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
  
     return redirect(url_for('JobPostingsPage'))
 
+@app.route('/Applicant_Details', methods=['POST'])
+def Applicant_Details():
+    if request.method == 'POST':
+        try:
+            # Extract job details from the form
+            NAME = request.form['NAME']
+            CONTACT_NUMBER = request.form['CONTACT_NUMBER']
+            Email = request.form['Email']
+            SKILLS = request.form['SKILLS']
+            EXPECTED_SALARY = request.form['EXPECTED_SALARY']
+            CURRENT_EMPLOYER = request.form['CURRENT_EMPLOYER']
+            CURRENT_SALARY = request.form['CURRENT_SALARY']
+            PREFERRED_LOCATION = request.form['PREFERRED_LOCATION']
+            Criminal_Record = request.form['Criminal Record']
+            Reason = request.form['Reason']
+ 
+            # Create a new Snowflake connection
+            conn = create_snowflake_connection()
+ 
+            # Execute an SQL insert statement using the Snowflake connection
+            cursor = conn.cursor()
+ 
+            query = """
+INSERT INTO JOBAPPLICANTS (NAME, CONTACT_NUMBER, Email, SKILLS, EXPECTED_SALARY, CURRENT_EMPLOYER, CURRENT_SALARY, PREFERRED_LOCATION, Criminal_Record, Reason)
+VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+"""         
+            # Execute the query with parameters
+            cursor.execute(query, (
+                NAME, CONTACT_NUMBER, Email, SKILLS, EXPECTED_SALARY, CURRENT_EMPLOYER,
+                CURRENT_SALARY, PREFERRED_LOCATION, Criminal_Record, Reason)  # Fix typo here
+            )
+
+            cursor.close()
+ 
+            # Commit the transaction
+            conn.commit()
+ 
+            # Close the Snowflake connection
+            conn.close()
+ 
+            flash('Job posting details added to Snowflake.', 'success')
+ 
+        except Exception as e:
+            print(e)
+            app.logger.error(f"An error occurred: {str(e)}")
+            flash('An error occurred. Please try again later.', 'error')
+ 
+    return redirect(url_for('ApplicantDetailsPage'))
 
 @app.route('/JobPortal')
 def JobPortal():
-    print("hi")
     try:
         # Create a Snowflake connection
         conn = create_snowflake_connection()

@@ -150,6 +150,9 @@ def about():
 @app.route('/Recruiter_home')
 def Recruiter_home():
     return render_template('Recruiter_home.html')
+@app.route('/Applicant_home')
+def Applicant_home():
+    return render_template('Applicant_home.html')
 
 @app.route('/JobPostings')
 def JobPostingsPage():
@@ -159,8 +162,6 @@ def JobPostingsPage():
 @app.route('/home')
 def home():
     return render_template('home.html')
-
-
 
 @app.route('/job_postings', methods=['POST'])
 def job_postings():

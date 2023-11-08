@@ -65,26 +65,37 @@ def register(user_type):
 
     
     elif user_type == 'applicant':
+        print("hi")
         if request.method == 'POST':
-            # Registration logic for job applicants
-            username = request.form['username']
-            password = request.form['password']
-
-            # Check if the username is already taken (in a real application, use a database)
-            if any(user['username'] == username for user in users):
-                flash('Username already exists. Please choose another.', 'danger')
-            else:
-                # Store the user data (in a real application, use a database)
-                hashed_password = generate_password_hash(password)
-                users.append({'username': username, 'password': hashed_password})
-                flash('Job applicant registration successful.', 'success')
-                return redirect(url_for('user_details'))
+            try:
+                Username_form = request.form['username_form']
+                Password_form = request.form['password_form']
+                CompanyName = request.form['fullname']
+                ContactEmail = request.form['email']
+        
+                # Create a new Snowflake connection
+                conn = create_snowflake_connection()
+        
+                # Execute an SQL insert statement using the Snowflake connection
+                cursor = conn.cursor()
+                query = "INSERT INTO UserDetails(Username, Password, details, ContactEmail) VALUES (%s, %s, %s, %s)"
+                cursor.execute(query, (Username_form, Password_form, CompanyName, ContactEmail))
+                cursor.close()
+        
+                # Commit the transaction
+                conn.commit()
+        
+                # Close the Snowflake connection
+                conn.close()
+        
+                # If the insertion is successful, flash a success message and redirect to a different page
+                flash('Registration successful', 'success')
+            except Exception as e:
+                print(e)
+                app.logger.error(f"An error occurred: {str(e)}")
+                flash('An error occurred. Please try again later.', 'error')
 
         return render_template('applicant_register.html')
-
-    else:
-        flash('Invalid user type.', 'danger')
-        return redirect(url_for('index'))
 
 
 #login page to enter username and password
@@ -139,20 +150,20 @@ def about():
 @app.route('/Recruiter_home')
 def Recruiter_home():
     return render_template('Recruiter_home.html')
+@app.route('/Applicant_home')
+def Applicant_home():
+    return render_template('Applicant_home.html')
 
 @app.route('/JobPostings')
 def JobPostingsPage():
     return render_template('JobPostings.html')
-
+@app.route('/ApplicantDetails')
+def ApplicantDetailsPage():
+    return render_template('ApplicantDetails.html')
 
 @app.route('/home')
 def home():
     return render_template('home.html')
-
-@app.route('/register/applicant', methods=['GET', 'POST'])
-def register_applicant():
-    
-    return render_template('applicant_register.html')
 
 @app.route('/job_postings', methods=['POST'])
 def job_postings():
@@ -202,10 +213,57 @@ VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
  
     return redirect(url_for('JobPostingsPage'))
 
+@app.route('/Applicant_Details', methods=['POST'])
+def Applicant_Details():
+    if request.method == 'POST':
+        try:
+            # Extract job details from the form
+            NAME = request.form['NAME']
+            CONTACT_NUMBER = request.form['CONTACT_NUMBER']
+            Email = request.form['Email']
+            SKILLS = request.form['SKILLS']
+            EXPECTED_SALARY = request.form['EXPECTED_SALARY']
+            CURRENT_EMPLOYER = request.form['CURRENT_EMPLOYER']
+            CURRENT_SALARY = request.form['CURRENT_SALARY']
+            PREFERRED_LOCATION = request.form['PREFERRED_LOCATION']
+            Criminal_Record = request.form['Criminal Record']
+            Reason = request.form['Reason']
+ 
+            # Create a new Snowflake connection
+            conn = create_snowflake_connection()
+ 
+            # Execute an SQL insert statement using the Snowflake connection
+            cursor = conn.cursor()
+ 
+            query = """
+INSERT INTO JOBAPPLICANTS (NAME, CONTACT_NUMBER, Email, SKILLS, EXPECTED_SALARY, CURRENT_EMPLOYER, CURRENT_SALARY, PREFERRED_LOCATION, Criminal_Record, Reason)
+VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+"""         
+            # Execute the query with parameters
+            cursor.execute(query, (
+                NAME, CONTACT_NUMBER, Email, SKILLS, EXPECTED_SALARY, CURRENT_EMPLOYER,
+                CURRENT_SALARY, PREFERRED_LOCATION, Criminal_Record, Reason)  # Fix typo here
+            )
+
+            cursor.close()
+ 
+            # Commit the transaction
+            conn.commit()
+ 
+            # Close the Snowflake connection
+            conn.close()
+ 
+            flash('Job posting details added to Snowflake.', 'success')
+ 
+        except Exception as e:
+            print(e)
+            app.logger.error(f"An error occurred: {str(e)}")
+            flash('An error occurred. Please try again later.', 'error')
+ 
+    return redirect(url_for('ApplicantDetailsPage'))
 
 @app.route('/JobPortal')
 def JobPortal():
-    print("hi")
     try:
         # Create a Snowflake connection
         conn = create_snowflake_connection()

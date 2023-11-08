@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Job Postings - BeyondBackgrounds</title>
+    <title>Applicant Details - BeyondBackgrounds</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='register.css') }}">
     <style>
         /* Global styles */
@@ -67,50 +67,49 @@
         </ul>
     </div>
     <div class="container">
-        <h1>Job Postings</h1>
-        <form method="POST" action="/job_postings">
+        <h1>Applicant Details</h1>
+        <form method="POST" action="/Applicant_Details">
+
             <div class="form-group">
-                <label for="companyName">Company Name:</label>
-                <input type="text" id="companyName" name="companyName" required>
+                <label for="NAME">NAME</label>
+                <input type="text" id="NAME" name="NAME" required>
             </div>
             <div class="form-group">
-                <label for="locations">Locations:</label>
-                <input type="text" id="locations" name="locations" required>
+                <label for="CONTACT_NUMBER">CONTACT NUMBER</label>
+                <input type="text" id="CONTACT_NUMBER" name="CONTACT_NUMBER" required>
             </div>
             <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
+				<label for="Email">Email</label>
+				<input type="email" id="Email" name="Email" required>  <!-- Fix name here -->
+			</div>
+
+            <div class="form-group">
+                <label for="SKILLS">SKILLS</label>
+                <input type="text" id="SKILLS" name="SKILLS" required>
             </div>
             <div class="form-group">
-                <label for="jobPosition">Job Position:</label>
-                <input type="text" id="jobPosition" name="jobPosition" required>
+                <label for="EXPECTED_SALARY">EXPECTED SALARY</label>
+                <input type="text" id="EXPECTED_SALARY" name="EXPECTED_SALARY" required>
             </div>
             <div class="form-group">
-                <label for="salary">Salary:</label>
-                <input type="text" id="salary" name="salary" required>
+                <label for="benefits">CURRENT EMPLOYER</label>
+                <input type="text" id="CURRENT_EMPLOYER" name="CURRENT_EMPLOYER" required>
             </div>
             <div class="form-group">
-                <label for="benefits">Benefits:</label>
-                <input type="text" id="benefits" name="benefits" required>
+                <label for="CURRENT_SALARY">CURRENT SALARY</label>
+                <input type="text" id="CURRENT_SALARY" name="CURRENT_SALARY" required>
             </div>
             <div class="form-group">
-                <label for="shiftTimings">Shift Timings:</label>
-                <input type="text" id="shiftTimings" name="shiftTimings" required>
+                <label for="PREFERRED_LOCATION">PREFERRED LOCATION</label>
+                <input type="text" id="PREFERRED_LOCATION" name="PREFERRED_LOCATION" required>
             </div>
             <div class="form-group">
-                <label for="offenceExemptions">Offence Exemptions:</label>
-                <input type="text" id="offenceExemptions" name="offenceExemptions" required>
+                <label for="Criminal Record">CRIMINAL RECORD</label>
+                <textarea id="Criminal Record" name="Criminal Record" required></textarea>
             </div>
             <div class="form-group">
-                <label for="notes">Notes:</label>
-                <textarea id="notes" name="notes" required></textarea>
-            </div>
-            <div class="form-group">
-                <label for="mandatCriminalRecord">Mandatory Criminal Record Check:</label>
-                <select id="mandatCriminalRecord" name="mandatCriminalRecord" required>
-                    <option value="yes">Yes</option>
-                    <option value="no">No</option>
-                </select>
+                <label for="Reason">IF YES, REASON:</label>
+                <textarea id="Reason" name="Reason" required> </textarea>                   
             </div>
             <button type="submit">Submit</button>
         </form>

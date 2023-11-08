@@ -25,79 +25,21 @@ def create_snowflake_connection():
         print("Snowflake Connection Error:", str(e))
         raise e
 
-@app.route('/')
-def index():
-    return render_template('login.html')
-
-@app.route('/register/<user_type>', methods=['GET', 'POST'])
-def register(user_type):
-    if user_type == 'recruiter':
-        if request.method == 'POST':
-            try:
-                Username_form = request.form['username_form']
-                Password_form = request.form['password_form']
-                CompanyName = request.form['company']
-                ContactEmail = request.form['email']
-        
-                # Create a new Snowflake connection
-                conn = create_snowflake_connection()
-        
-                # Execute an SQL insert statement using the Snowflake connection
-                cursor = conn.cursor()
-                query = "INSERT INTO UserDetails(Username, Password, details, ContactEmail) VALUES (%s, %s, %s, %s)"
-                cursor.execute(query, (Username_form, Password_form, CompanyName, ContactEmail))
-                cursor.close()
-        
-                # Commit the transaction
-                conn.commit()
-        
-                # Close the Snowflake connection
-                conn.close()
-        
-                # If the insertion is successful, flash a success message and redirect to a different page
-                flash('Registration successful', 'success')
-            except Exception as e:
-                print(e)
-                app.logger.error(f"An error occurred: {str(e)}")
-                flash('An error occurred. Please try again later.', 'error')
-
-        return render_template('recruiter_register.html')
-
-    
-    elif user_type == 'applicant':
-        if request.method == 'POST':
-            # Registration logic for job applicants
-            username = request.form['username']
-            password = request.form['password']
-
-            # Check if the username is already taken (in a real application, use a database)
-            if any(user['username'] == username for user in users):
-                flash('Username already exists. Please choose another.', 'danger')
-            else:
-                # Store the user data (in a real application, use a database)
-                hashed_password = generate_password_hash(password)
-                users.append({'username': username, 'password': hashed_password})
-                flash('Job applicant registration successful.', 'success')
-                return redirect(url_for('user_details'))
-
-        return render_template('applicant_register.html')
-
-    else:
-        flash('Invalid user type.', 'danger')
-        return redirect(url_for('index'))
-
-
 #login page to enter username and password
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
+
+        user_type = get_usertype(username)
         
         # Check the database for the username and password
-        if check_credentials(username, password):
+        if check_credentials(username, password) and user_type == 'recruiter':
             #Redirects to Dashboard on successful login
-            return redirect(url_for('dashboard'))
+            return redirect(url_for('recruiter_dashboard'))
+        elif check_credentials(username, password) and user_type == 'applicant':
+            return redirect(url_for('applicant_dashboard'))
         else:
             #Error message on login failure
             app.error_message = 'Invalid username or password'
@@ -152,9 +94,6 @@ def get_usertype(username):
         print(e)
         return None
 
-@app.route('/dashboard')
-def dashboard():
-    return render_template('home.html')
 
 @app.route('/about')
 def about():
@@ -169,85 +108,21 @@ def JobPostingsPage():
     return render_template('JobPostings.html')
 
 
-@app.route('/home')
+@app.route('/')
 def home():
     return render_template('home.html')
 
 @app.route('/register/applicant', methods=['GET', 'POST'])
-def register_applicant():
-    
+def register_applicant():  
     return render_template('applicant_register.html')
 
-@app.route('/job_postings', methods=['POST'])
-def job_postings():
-    if request.method == 'POST':
-        try:
-            # Extract job details from the form
-            company_name = request.form['companyName']
-            locations = request.form['locations']
-            email = request.form['email']
-            job_position = request.form['jobPosition']
-            salary = request.form['salary']
-            benefits = request.form['benefits']
-            shift_timings = request.form['shiftTimings']
-            offence_exemptions = request.form['offenceExemptions']
-            notes = request.form['notes']
-            mandat_criminal_record = request.form['mandatCriminalRecord']
- 
-            # Create a new Snowflake connection
-            conn = create_snowflake_connection()
- 
-            # Execute an SQL insert statement using the Snowflake connection
-            cursor = conn.cursor()
- 
-            query = """
-INSERT INTO JobDetails (CompanyName, Locations, Email, JobPosition, Salary, Benefits, shift_timings, OffenceExemptions, Notes, mandat_criminal_record)
-VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-"""         
-            # Execute the query with parameters
-            cursor.execute(query, (
-                company_name, locations, email, job_position, salary, benefits,
-                shift_timings, offence_exemptions, notes, str(mandat_criminal_record)
-            ))
-            cursor.close()
- 
-            # Commit the transaction
-            conn.commit()
- 
-            # Close the Snowflake connection
-            conn.close()
- 
-            flash('Job posting details added to Snowflake.', 'success')
- 
-        except Exception as e:
-            print(e)
-            app.logger.error(f"An error occurred: {str(e)}")
-            flash('An error occurred. Please try again later.', 'error')
- 
-    return redirect(url_for('JobPostingsPage'))
+@app.route('/applicant/dashboard')
+def applicant_dashboard():
+    return render_template('applicant_dashboard.html')
 
-
-@app.route('/JobPortal')
-def JobPortal():
-    print("hi")
-    try:
-        # Create a Snowflake connection
-        conn = create_snowflake_connection()
-
-        # Execute an SQL select statement using the Snowflake connection
-        cursor = conn.cursor()
-        query = "SELECT * FROM JobDetails"
-        cursor.execute(query)
-        jobs = cursor.fetchall()
-
-        cursor.close()
-        conn.close()
-        print(jobs)
-        return render_template('JobPortal.html', jobs=jobs)
-    except Exception as e:
-        print(e)
-        app.logger.error(f"An error occurred: {str(e)}")
-        flash('An error occurred. Please try again later.', 'error')
-        
+@app.route('/recruiter/dashboard')
+def recruiter_dashboard():
+    return render_template('recruiter_dashboard.html')
+      
 if __name__ == '__main__':
     app.run(debug=True)

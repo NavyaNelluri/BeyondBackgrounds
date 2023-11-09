@@ -123,6 +123,9 @@ def applicant_dashboard():
 @app.route('/recruiter/dashboard')
 def recruiter_dashboard():
     return render_template('recruiter_dashboard.html')
+
+
+
       
 if __name__ == '__main__':
     app.run(debug=True)

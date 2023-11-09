@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="{{ url_for('static', filename='register.css') }}">
-
     <title>Register - BeyondBackgrounds</title>
     <style>
         /* Style for the rectangular boxes */
@@ -20,7 +19,6 @@
             transition: transform 0.2s, background-color 0.2s;
         }
     </style>
-
 </head>
 <body>
     <!-- Header Image (replace 'pic2.jpg' with your image filename) -->
@@ -38,7 +36,6 @@
             <li><a href="/JobPortal">Job Portal</a></li>
             <li><a href="/Applicant_home">Applicant Portal</a></li>
             <li><a href="/about">About</a></li>
-
         </ul>
     </div>
      
@@ -49,7 +46,7 @@
     </div>
 
     <!-- Box 3 -->
-    <div class="box" onmouseover="highlightBox(this)" onmouseout="unhighlightBox(this)">
+    <div class="box" onmouseover="highlightBox(this)" onmouseout="unhighlightBox(this)" onclick="redirectToJobPortal()">
         <h2><a href="/JobPortal">Find Jobs</a></h2>
         <p>Please click on the link to find jobs.</p>
     </div>
@@ -63,6 +60,10 @@
         function unhighlightBox(box) {
             box.style.backgroundColor = "bisque"; // Restore the original background color
             box.style.transform = "scale(1)"; // Restore the original size
+        }
+
+        function redirectToJobPortal() {
+            window.location.href = "/JobPortal"; // Redirect to the JobPortal page
         }
     </script>
 </body>

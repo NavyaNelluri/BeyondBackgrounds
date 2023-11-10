@@ -1,8 +1,8 @@
 
 import pytest
 import snowflake.connector
-from app import create_snowflake_connection  # Import your app's function
-import app
+from app import check_credentials,get_usertype  # Import your app's function
+from app import app
 
 
 
@@ -19,57 +19,75 @@ def test_snowflake_connection():
         database= 'BEYONDBACKGROUNDS',
         schema= 'SCH_BEYONDBACKGROUNDS',
         role= 'ACCOUNTADMIN')
+        print(conn)
 
         assert isinstance(conn, snowflake.connector.connection.SnowflakeConnection)
     except Exception as e:
         pytest.fail(f"Snowflake Connection Error: {str(e)}")
 
 
-# Test case for user namefield presence
-def test_username():
-    username = False
-    with open('templates/applicant_register.html', 'r') as file:
-        for line in file:
-            if 'id="username"' in line:
-                username = True
-                break
-    if username:
-        print("passed")
-    else:
-        print("failed")
-# Running the test case
-test_username()
-
-#Test case to test the success scenario of login page
-def test_check_credentials_pass():
-    username = 'Navya Nelluri'
-    password = 'Navya.c@698'
-
-    #calls the function with correct credentials
-    result = app.check_credentials(username, password)
-
-    assert(result,True)
 
 #Test case to test the fail scenario of login page
 def test_check_credentials_fail():
-    username = 'ABC'
+    username = 'cjdh'
     password = 'xyz'
 
     #calls the function with wrong credentials
-    result = app.check_credentials(username, password)
+    result = check_credentials(username, password)
+    print(result)
 
-    assert(result,False)
+    assert result == False
 
 #Test case to test the fail scenario of login page
-def test_check_credentials_fail():
+def test_check_credentials_pass():
     username = 'ABC'
     password = 'abc'
 
     #calls the function with wrong credentials
-    result = app.check_credentials(username, password)
+    result = check_credentials(username, password)
+    print(result)
 
-    assert(result,False)
+    assert result == True
 
+#Test case to test the fail scenario of login page
+def test_usertype_applicant():
+    username = 'ABC'
+
+    #calls the function with wrong credentials
+    result = get_usertype(username)
+    print(result)
+
+    assert result == 'applicant'
+
+#Test case to test the fail scenario of login page
+def test_usertype_recruiter():
+    username = 'XYZ'
+
+    #calls the function with wrong credentials
+    result = get_usertype(username)
+    print(result)
+
+    assert result == 'recruiter'
+
+#Test case to test the fail scenario of login page
+def test_usertype_none():
+    username = 'bcfjdhf'
+
+    #calls the function with wrong credentials
+    result = get_usertype(username)
+    print(result)
+
+    assert result == None
+
+def test_about_route():
+    client = app.test_client()
+    response = client.get('/about')
+    assert response.status_code == 200
+
+def test_route_fail():
+    client = app.test_client()
+    response = client.get('/index')
+    assert response.status_code == 404
 
 if __name__ == "__main__":
     pytest.main()

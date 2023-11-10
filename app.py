@@ -60,6 +60,7 @@ def check_credentials(username, password):
 
         #Fetch the results
         results = cursor.fetchall()
+        print(results)
         cursor.close()
 
         if results:
@@ -123,8 +124,6 @@ def applicant_dashboard():
 @app.route('/recruiter/dashboard')
 def recruiter_dashboard():
     return render_template('recruiter_dashboard.html')
-
-
 
       
 if __name__ == '__main__':

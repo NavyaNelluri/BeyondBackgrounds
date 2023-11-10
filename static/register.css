@@ -1,6 +1,6 @@
 /* Style for the image (adjust width and height) */
 .header-image {
-    width: 1400px;
+    width: 1000px;
     height: 600px;
     position: relative;
     margin-top: -50px;
@@ -10,7 +10,7 @@
 /* Style for the title text */
 .scrolling-title {
     position: absolute;
-    top: 0;
+    top: 13%;
     left: 50%;
     transform: translateX(-50%);
     font-size: 42px;
@@ -44,8 +44,8 @@ body {
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     max-width: 400px;
-    margin: 50px auto;
-    padding: 20px;
+    margin: 10px auto;
+    padding: 10px;
     text-align: center;
     transform: translate(-10%, -50%); /* Adjust the left value to move it to the right */
     z-index: 1; /* Bring the container to the foreground */

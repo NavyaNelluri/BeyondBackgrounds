@@ -42,12 +42,12 @@
         <h2>Register as Job Applicant</h2> <!-- Heading for the registration form section -->
         <form method="POST" action="/register/applicant"> <!-- Form for user registration with HTTP POST method -->
             <div class="form-group">
-                <label for="username">Username:</label> <!-- Label for the username input field -->
-                <input type="text" id="username" name="username" required> <!-- Input field for entering the username -->
+                <label for="username_form">Username:</label> <!-- Label for the username input field -->
+                <input type="text" id="username_form" name="username_form" required> <!-- Input field for entering the username -->
             </div>
             <div class="form-group">
-                <label for="password">Password:</label> <!-- Label for the password input field -->
-                <input type="password" id="password" name="password" required> <!-- Input field for entering the password -->
+                <label for="password_form">Password:</label> <!-- Label for the password input field -->
+                <input type="password" id="password_form" name="password_form" required> <!-- Input field for entering the password -->
             </div>
             <div class="form-group">
                 <label for="fullname">Full Name:</label> <!-- Label for the full name input field -->
@@ -57,10 +57,7 @@
                 <label for="email">Email:</label> <!-- Label for the email input field -->
                 <input type="email" id="email" name="email" required> <!-- Input field for entering the email -->
             </div>
-            <div class="form-group">
-                <label for="resume">Upload Resume:</label> <!-- Label for the resume upload input field -->
-                <input type="file" id="resume" name="resume" accept=".pdf, .doc, .docx"> <!-- Input field for uploading a resume file -->
-            </div>
+            
             <input type="submit" value="Register"> <!-- Submit button for the registration form -->
         </form>
         <p>Already have an account? <a href="{{ url_for('login') }}">Log in here</a></p> <!-- Message and link for users who already have an account -->

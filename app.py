@@ -282,6 +282,14 @@ def JobPortal():
         print(e)
         app.logger.error(f"An error occurred: {str(e)}")
         flash('An error occurred. Please try again later.', 'error')
+
+@app.route('/JobPostings')
+def JobPostingsPage():
+    return render_template('JobPostings.html')
+
+@app.route('/ApplicantDetails')
+def ApplicantDetailsPage():
+    return render_template('ApplicantDetails.html')
         
 if __name__ == '__main__':
     app.run(debug=True)

@@ -47,7 +47,7 @@ body {
     margin: 10px auto;
     padding: 10px;
     text-align: center;
-    transform: translate(-10%, -50%); /* Adjust the left value to move it to the right */
+    transform: translate(-50%, -145%); /* Adjust the left value to move it to the right */
     z-index: 1; /* Bring the container to the foreground */
 }
 
@@ -72,7 +72,7 @@ label {
 input[type="text"],
 input[type="password"],
 input[type="email"] {
-    width: 100%;
+    width: 90%;
     padding: 5px;
     border: 1px solid #CCC;
     border-radius: 4px;

@@ -60,6 +60,16 @@ def test_check_credentials_fail():
 
     assert(result,False)
 
+#Test case to test the fail scenario of login page
+def test_check_credentials_fail():
+    username = 'ABC'
+    password = 'abc'
+
+    #calls the function with wrong credentials
+    result = app.check_credentials(username, password)
+
+    assert(result,False)
+
 
 if __name__ == "__main__":
     pytest.main()

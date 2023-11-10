@@ -8,6 +8,7 @@ app.error_message = None
 
 # Function to create a Snowflake connection
 def create_snowflake_connection():
+    # ... (unchanged)
     snowflake_config = {
         'account': 'anohoex-igb93598',
         'user': 'BEYONDBACKGROUNDS',
@@ -25,10 +26,23 @@ def create_snowflake_connection():
         print("Snowflake Connection Error:", str(e))
         raise e
 
+# Iterator for JobDetails
+class JobDetailsIterator:
+    def __init__(self, cursor):
+        self.cursor = cursor
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        row = self.cursor.fetchone()
+        if row is None:
+            raise StopIteration
+        return row
+
 @app.route('/')
 def index():
     return render_template('login.html')
-
 @app.route('/register/<user_type>', methods=['GET', 'POST'])
 def register(user_type):
     if user_type == 'recruiter':
@@ -262,6 +276,9 @@ VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
  
     return redirect(url_for('ApplicantDetailsPage'))
 
+
+
+# Modify the route where you render 'JobPortal.html'
 @app.route('/JobPortal')
 def JobPortal():
     try:
@@ -274,14 +291,19 @@ def JobPortal():
         cursor.execute(query)
         jobs = cursor.fetchall()
 
+        # Close the cursor and connection
         cursor.close()
         conn.close()
-        print(jobs)
-        return render_template('JobPortal.html', jobs=jobs)
+
+        # Pass the job_iterator to the template
+        job_iterator = iter(jobs)
+
+        return render_template('JobPortal.html', job_iterator=job_iterator)
+
     except Exception as e:
         print(e)
         app.logger.error(f"An error occurred: {str(e)}")
         flash('An error occurred. Please try again later.', 'error')
-        
+
 if __name__ == '__main__':
     app.run(debug=True)

@@ -107,6 +107,9 @@ def Recruiter_home():
 def JobPostingsPage():
     return render_template('JobPostings.html')
 
+@app.route('/JobPortal')
+def JobPortal():
+    return render_template('JobPortal.html')
 
 @app.route('/')
 def home():
@@ -124,8 +127,6 @@ def applicant_dashboard():
 def recruiter_dashboard():
     return render_template('recruiter_dashboard.html')
 
-
-
-      
+     
 if __name__ == '__main__':
     app.run(debug=True)

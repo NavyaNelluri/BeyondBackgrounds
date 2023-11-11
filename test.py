@@ -65,9 +65,9 @@ def test_job_portal_page(self):
         self.assertEqual(response.status_code, 200)
 
 def test_login_page(self):
-        # Ensure that the login page returns a 100 status code
+        # Ensure that the login page returns a 200 status code
         response = self.app.get('/login')
-        self.assertEqual(response.status_code, 100)
+        self.assertEqual(response.status_code, 200)
 
 
 if __name__ == "__main__":

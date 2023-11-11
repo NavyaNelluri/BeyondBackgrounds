@@ -88,6 +88,41 @@ def test_route_fail():
     client = app.test_client()
     response = client.get('/index')
     assert response.status_code == 404
+    
+def test_applicant_details_route():
+    client = app.test_client()
+    response = client.post('/Applicant_Details', data={
+        'NAME': 'John Doe',
+        'CONTACT_NUMBER': '1234567890',
+        'Email': 'john.doe@example.com',
+        'SKILLS': 'Python, Flask',
+        'EXPECTED_SALARY': '100000',
+        'CURRENT_EMPLOYER': 'ABC Inc.',
+        'CURRENT_SALARY': '90000',
+        'PREFERRED_LOCATION': 'City ABC',
+        'Criminal Record': 'No',
+        'Reason': 'Looking for new opportunities'
+    })
+
+    assert response.status_code == 302
+    
+def test_job_postings_route():
+    client = app.test_client()
+    response = client.post('/job_postings', data={
+        'companyName': 'ABC Corp',
+        'locations': 'City XYZ',
+        'email': 'abc@example.com',
+        'jobPosition': 'Software Engineer',
+        'salary': '90000',
+        'benefits': 'Health insurance, flexible hours',
+        'shiftTimings': '9 AM to 5 PM',
+        'offenceExemptions': 'No convictions',
+        'notes': 'Additional notes',
+        'mandatCriminalRecord': 'Yes'
+    }, follow_redirects=True)
+
+    assert response.status_code == 200
+
 
 if __name__ == "__main__":
     pytest.main()

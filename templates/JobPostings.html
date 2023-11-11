@@ -21,6 +21,7 @@
             background-color: #fff;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transform: translate(0%, -150%);
             overflow-y: auto; /* Allow vertical scrolling if content exceeds the container */
             max-height: 70vh; /* Adjust the maximum height as needed */
 			background-color: beige;
@@ -52,15 +53,9 @@
 </head>
 <body>
     <img class="header-image" src="{{ url_for('static', filename='Wallpaper.jpg') }}" alt="Beyond Backgrounds Image">
-    <div class="scrolling-title">Beyond Backgrounds</div>
     <div class="navigation">
         <ul>
-            <li><a href="/home">Home</a></li>
-            <li><a href="/login">Login</a></li>
-            <li><a href="/register/recruiter">Recruiter Register</a></li>
-            <li><a href="/register/applicant">Applicant Register</a></li>
-            <li><a href="/Recruiter_home">Recruiter Portal</a></li>
-            <li><a href="/JobPortal">Job Portal</a></li>
+            <li><a href="/Recruiter_home">Dashboard</a></li>
             <li><a href="/about">About</a></li>
 
 

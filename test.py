@@ -59,6 +59,15 @@ def test_check_credentials_fail():
     result = app.check_credentials(username, password)
 
     assert(result,False)
+def test_job_portal_page(self):
+        # Ensure that the job portal page returns a 200 status code
+        response = self.app.get('/JobPortal')
+        self.assertEqual(response.status_code, 200)
+
+def test_login_page(self):
+        # Ensure that the login page returns a 100 status code
+        response = self.app.get('/login')
+        self.assertEqual(response.status_code, 100)
 
 
 if __name__ == "__main__":

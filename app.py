@@ -41,8 +41,8 @@ def register(user_type):
         
                 # Execute an SQL insert statement using the Snowflake connection
                 cursor = conn.cursor()
-                query = "INSERT INTO UserDetails(Username, Password, details, ContactEmail) VALUES (%s, %s, %s, %s)"
-                cursor.execute(query, (Username_form, Password_form, CompanyName, ContactEmail))
+                query = "INSERT INTO UserDetails(Username, Password, details, ContactEmail,UserType) VALUES (%s, %s, %s, %s,%s)"
+                cursor.execute(query, (Username_form, Password_form, CompanyName, ContactEmail,user_type))
                 cursor.close()
         
                 # Commit the transaction
@@ -74,8 +74,8 @@ def register(user_type):
         
                 # Execute an SQL insert statement using the Snowflake connection
                 cursor = conn.cursor()
-                query = "INSERT INTO UserDetails(Username, Password, details, ContactEmail) VALUES (%s, %s, %s, %s)"
-                cursor.execute(query, (Username_form, Password_form, CompanyName, ContactEmail))
+                query = "INSERT INTO UserDetails(Username, Password, details, ContactEmail, UserType) VALUES (%s, %s, %s, %s,%s)"
+                cursor.execute(query, (Username_form, Password_form, CompanyName, ContactEmail,user_type))
                 cursor.close()
         
                 # Commit the transaction

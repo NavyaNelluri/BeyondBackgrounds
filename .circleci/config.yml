@@ -16,4 +16,9 @@ jobs:
           name: "Run pytest"
           command: "pytest test.py"
 
+workflows:
+  build-test-and-deploy:
+    jobs:
+      - say-hello
+
 

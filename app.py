@@ -304,7 +304,7 @@ def JobPortal():
         conn.close()
         print(jobs)
         return render_template('JobPortal.html', jobs=jobs)
-    except Exception as e:
+  except Exception as e:
         print(e)
         app.logger.error(f"An error occurred: {str(e)}")
         flash('An error occurred. Please try again later.', 'error')

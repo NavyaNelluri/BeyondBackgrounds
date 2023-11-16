@@ -6,16 +6,27 @@
     <title>Register - BeyondBackgrounds</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='register.css') }}">
     <style>
+	.header-image {
+    width: 1100px;
+    height: 600px;
+    position: relative;
+    margin-top: -50px;
+    z-index: -1; /* Bring the container to the foreground */
+}
         .container {
     background-color: #FFFFFF;
     border: 1px solid #CCC;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	width: 400px; /* Adjust the width to increase the size */
+    height: 400px;
     max-width: 400px;
     margin: 10px auto;
     padding: 10px;
     text-align: center;
-    transform: translate(-50%, -110%); /* Adjust the left value to move it to the right */
+    position: absolute;
+    top: 280px; /* Adjust the top value to position it from the top */
+    right: 0px; /* Adjust the right value to position it from the right */
     z-index: 1; /* Bring the container to the foreground */
 }
     </style>
@@ -23,7 +34,8 @@
 <body>
     <!-- Header Image (replace 'pic2.jpg' with your image filename) -->
     <img class="header-image" src="{{ url_for('static', filename='Wallpaper.jpg') }}" alt="Beyond Backgrounds Image">
-    
+    <div class="scrolling-title">Beyond Backgrounds</div>
+
     <div class="navigation">
         <ul>
             <li><a href="/login">Login</a></li>

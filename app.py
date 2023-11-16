@@ -247,9 +247,10 @@ def Applicant_Details():
             CURRENT_EMPLOYER = request.form['CURRENT_EMPLOYER']
             CURRENT_SALARY = request.form['CURRENT_SALARY']
             PREFERRED_LOCATION = request.form['PREFERRED_LOCATION']
-            Criminal_Record = request.form['Criminal Record']
-            Reason = request.form['Reason']
- 
+            Criminal_Record = request.form['CriminalRecord']
+            Reason = request.form.get('Reason') if Criminal_Record == 'yes' else "Not Applicable"
+            print(f"Criminal_Record: {Criminal_Record}, Reason: {Reason}")
+
             # Create a new Snowflake connection
             conn = create_snowflake_connection()
  

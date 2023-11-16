@@ -21,7 +21,7 @@
             background-color: #fff;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            transform: translate(0%, -100%); 
+	transform: translate(0%, -100%);
             overflow-y: auto; /* Allow vertical scrolling if content exceeds the container */
             max-height: 70vh; /* Adjust the maximum height as needed */
 			background-color: beige;
@@ -37,8 +37,7 @@
             font-size: 24px;
             margin-top: 10px;
         }
-
-        /* Form styles */
+		/* Form styles */
         form {
             padding: 20px;
         }
@@ -74,8 +73,12 @@
                 <label for="CONTACT_NUMBER">CONTACT NUMBER</label>
                 <input type="text" id="CONTACT_NUMBER" name="CONTACT_NUMBER" required>
             </div>
+			<div class="form-group">
+                <label for="GENDER">GENDER</label>
+                <input type="text" id="GENDER" name="GENDER" required>
+            </div>
             <div class="form-group">
-				<label for="Email">Email</label>
+				<label for="Email">EMAIL</label>
 				<input type="email" id="Email" name="Email" required>  <!-- Fix name here -->
 			</div>
 

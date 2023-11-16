@@ -9,7 +9,7 @@ app.error_message = None
 # Function to create a Snowflake connection
 def create_snowflake_connection():
     snowflake_config = {
-        'account': 'anohoex-igb93598',
+        'account': 'xjtvekn-em26794',
         'user': 'BEYONDBACKGROUNDS',
         'password': 'Beyondpswd1',
         'warehouse': 'COMPUTE_WH',
@@ -68,7 +68,7 @@ def register(user_type):
                 Password_form = request.form['password_form']
                 CompanyName = request.form['fullname']
                 ContactEmail = request.form['email']
-        
+                print("hi")
                 # Create a new Snowflake connection
                 conn = create_snowflake_connection()
         
@@ -180,10 +180,6 @@ def Applicant_home():
 def home():
     return render_template('home.html')
 
-@app.route('/register/applicant', methods=['GET', 'POST'])
-def register_applicant():  
-    return render_template('applicant_register.html')
-
 @app.route('/applicant/dashboard')
 def applicant_dashboard():
     return render_template('applicant_dashboard.html')
@@ -244,6 +240,7 @@ def Applicant_Details():
             # Extract job details from the form
             NAME = request.form['NAME']
             CONTACT_NUMBER = request.form['CONTACT_NUMBER']
+            GENDER = request.form['GENDER']
             Email = request.form['Email']
             SKILLS = request.form['SKILLS']
             EXPECTED_SALARY = request.form['EXPECTED_SALARY']
@@ -260,12 +257,12 @@ def Applicant_Details():
             cursor = conn.cursor()
  
             query = """
-INSERT INTO JOBAPPLICANTS (NAME, CONTACT_NUMBER, Email, SKILLS, EXPECTED_SALARY, CURRENT_EMPLOYER, CURRENT_SALARY, PREFERRED_LOCATION, Criminal_Record, Reason)
+INSERT INTO JOBAPPLICANTS (NAME, CONTACT_NUMBER,GENDER, Email, SKILLS, EXPECTED_SALARY, CURRENT_EMPLOYER, CURRENT_SALARY, PREFERRED_LOCATION, Criminal_Record, Reason)
 VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
 """         
             # Execute the query with parameters
             cursor.execute(query, (
-                NAME, CONTACT_NUMBER, Email, SKILLS, EXPECTED_SALARY, CURRENT_EMPLOYER,
+                NAME, CONTACT_NUMBER,GENDER,  Email, SKILLS, EXPECTED_SALARY, CURRENT_EMPLOYER,
                 CURRENT_SALARY, PREFERRED_LOCATION, Criminal_Record, Reason)  # Fix typo here
             )
 

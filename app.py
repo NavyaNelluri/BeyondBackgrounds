@@ -258,7 +258,7 @@ def Applicant_Details():
  
             query = """
 INSERT INTO JOBAPPLICANTS (NAME, CONTACT_NUMBER,GENDER, Email, SKILLS, EXPECTED_SALARY, CURRENT_EMPLOYER, CURRENT_SALARY, PREFERRED_LOCATION, Criminal_Record, Reason)
-VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+VALUES (%s, %s, %s,%s, %s, %s, %s, %s, %s, %s, %s)
 """         
             # Execute the query with parameters
             cursor.execute(query, (

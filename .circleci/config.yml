@@ -1,9 +1,9 @@
 version: 2.1
 
 jobs:
-  say-hello:
+  build-and-test:
     docker:
-      - image: python:3.8-bullseye  # Use the official Python image based on Debian Bullseye
+      - image: python:3.8-bullseye
     steps:
       - checkout
       - run:
@@ -15,10 +15,37 @@ jobs:
       - run:
           name: "Run pytest"
           command: "pytest test.py"
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+
+  build-docker-image:
+    docker:
+      - image: docker:20.10
+    steps:
+      - attach_workspace:
+          at: /workspace
+      - run:
+          name: "Build Docker Image"
+          command: |
+            cd /workspace
+            docker build -t prathibha07/BBImage:${CIRCLE_SHA1} .
+      - run:
+          name: "Push Docker Image"
+          command: |
+            docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
+            docker push prathibha07/BBImage:${CIRCLE_SHA1}
 
 workflows:
+  version: 2
   build-test-and-deploy:
     jobs:
-      - say-hello
-
-
+      - build-and-test
+      - build-docker-image:
+          requires:
+            - build-and-test
+          filters:
+            branches:
+              only:
+                - main

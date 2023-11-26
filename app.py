@@ -307,6 +307,30 @@ def JobPortal():
         app.logger.error(f"An error occurred: {str(e)}")
         flash('An error occurred. Please try again later.', 'error')
 
+def get_user_details():
+    # Replace the connection details with your database connection
+    conn = create_snowflake_connection()
+    cursor = conn.cursor()
+
+    # Assuming there's a 'users' table with columns 'name', 'email', etc.
+    cursor.execute("SELECT name, email FROM users WHERE user_id = 1")  # Change the query as needed
+    user_details = cursor.fetchone()
+
+    conn.close()
+
+    return user_details
+
+@app.route('/user_profile')
+def user_profile():
+    user_details = get_user_details()
+    return render_template('user_profile.html', user_details=user_details)
+
+# Route to render the user profile page
+@app.route('/user_profile')
+def user_profile():
+    user_details = get_user_details()
+    return render_template('user_profile.html', user_details=user_details)
+
 @app.route('/recruiter/dashboard')
 def recruiter_dashboard():
     return render_template('recruiter_dashboard.html')

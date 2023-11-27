@@ -306,8 +306,8 @@ def JobPortal():
         flash('An error occurred. Please try again later.', 'error')
 @app.route('/filter_applicants', methods=['GET', 'POST'])
 def filter_applicants():
-    if request.method == 'POST':
-        try:
+    try:
+        if request.method == 'POST':
             # Retrieve filter parameters from the form
             skills_filter = request.form.get('skills')
             criminal_record_filter = request.form.get('criminal_record')
@@ -318,12 +318,18 @@ def filter_applicants():
             # Build the SQL query based on the filter parameters
             query = "SELECT * FROM JOBAPPLICANTS WHERE "
 
-            #if skills_filter:
-            #    query += f" AND SKILLS LIKE '%{skills_filter}%'"
-
-            if criminal_record_filter:
-                query += f"  CRIMINAL_RECORD = '{criminal_record_filter}'"
+            if skills_filter:
+                query += f"  SKILLS LIKE '%{skills_filter}%' and"
+            else:
+                query += f" "                
+            if criminal_record_filter == 'yes':
+                query += "   CRIMINAL_RECORD = 'yes'"
+            elif criminal_record_filter == 'no':
+                query += "   CRIMINAL_RECORD = 'no'"
+            else:
+                query = "SELECT * FROM JOBAPPLICANTS"
             print(query)
+
             # Execute the SQL query
             cursor = conn.cursor()
             cursor.execute(query)
@@ -331,15 +337,19 @@ def filter_applicants():
             filtered_applicants = cursor.fetchall()
             cursor.close()
             conn.close()
-            return render_template('filter_applicants.html', filtered_applicants=filtered_applicants)
 
-        except Exception as e:
-            print(e)
-            app.logger.error(f"An error occurred: {str(e)}")
-            flash('An error occurred. Please try again later.', 'error')
+            return render_template('filter_applicants.html', jobs=filtered_applicants)
 
-    # If it's a GET request or an error occurred, render the initial page
-    return render_template('filter_applicants.html')
+    except Exception as e:
+        print(e)
+        app.logger.error(f"An error occurred: {str(e)}")
+        flash('An error occurred. Please try again later.', 'error')
+
+        # You can include additional information in the template context
+        return render_template('filter_applicants.html', jobs=[], error_message=str(e))
+
+    # Add a fallback return statement if the 'try' block doesn't execute successfully
+    return render_template('filter_applicants.html', jobs=[], error_message="An unexpected error occurred.")
 
 
 @app.route('/recruiter/dashboard')

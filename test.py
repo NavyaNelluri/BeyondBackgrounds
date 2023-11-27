@@ -126,8 +126,10 @@ def test_login_with_valid_credentials():
         'password': 'abc'
     }, follow_redirects=True)
 
+    # Assuming a successful login redirects to a different page
     assert b'Invalid username or password' not in response.data
-    assert response.status_code == 200
+    assert response.status_code == 200  # Update this based on your application's behavior
+    assert b'Welcome' in response.data  # Update with a string indicative of a successful login
 
 
 if __name__ == "__main__":

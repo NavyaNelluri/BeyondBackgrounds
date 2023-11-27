@@ -119,7 +119,7 @@ def test_job_postings_route():
 
     assert response.status_code == 200
     
-    def test_login_with_valid_credentials():
+def test_login_with_valid_credentials():
     client = app.test_client()
     response = client.post('/login', data={
         'username': 'ABC',
@@ -128,6 +128,7 @@ def test_job_postings_route():
 
     assert b'Invalid username or password' not in response.data
     assert response.status_code == 200
+
 
 if __name__ == "__main__":
     pytest.main()

@@ -12,13 +12,13 @@ from app import app
 def test_snowflake_connection():
     # This test checks if the Snowflake connection can be established.
     try:
-        conn = snowflake.connector.connect( 'account': 'xjtvekn-em26794',
-        'user': 'BEYONDBACKGROUNDS',
-        'password': 'Beyondpswd1',
-        'warehouse': 'COMPUTE_WH',
-        'database': 'BEYONDBACKGROUNDS',
-        'schema': 'SCH_BEYONDBACKGROUNDS',
-        'role': 'ACCOUNTADMIN')
+        conn = snowflake.connector.connect( 'account'= 'xjtvekn-em26794',
+        'user'= 'BEYONDBACKGROUNDS',
+        'password'= 'Beyondpswd1',
+        'warehouse'= 'COMPUTE_WH',
+        'database'= 'BEYONDBACKGROUNDS',
+        'schema'= 'SCH_BEYONDBACKGROUNDS',
+        'role'= 'ACCOUNTADMIN')
         print(conn)
 
         assert isinstance(conn, snowflake.connector.connection.SnowflakeConnection)

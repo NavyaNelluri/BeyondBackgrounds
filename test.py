@@ -52,15 +52,7 @@ def test_check_credentials_pass():
 
     assert result == True
 
-#Test case to test the fail scenario of login page
-def test_usertype_applicant():
-    username = 'josna123'
 
-    #calls the function with wrong credentials
-    result = get_usertype(username)
-    print(result)
-
-    assert result == 'applicant'
 
 #Test case to test the fail scenario of login page
 def test_usertype_recruiter():

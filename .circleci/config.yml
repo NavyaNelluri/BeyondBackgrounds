@@ -1,9 +1,9 @@
 version: 2.1
 
 jobs:
-  say-hello:
+  build-and-test:
     docker:
-      - image: python:3.8-bullseye  # Use the official Python image based on Debian Bullseye
+      - image: python:3.8-bullseye
     steps:
       - checkout
       - run:
@@ -17,8 +17,7 @@ jobs:
           command: "pytest test.py"
 
 workflows:
+  version: 2
   build-test-and-deploy:
     jobs:
-      - say-hello
-
-
+      - build-and-test

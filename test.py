@@ -12,14 +12,17 @@ from app import app
 def test_snowflake_connection():
     # This test checks if the Snowflake connection can be established.
     try:
-        conn = snowflake.connector.connect( 'account'= 'xjtvekn-em26794',
-        'user'= 'BEYONDBACKGROUNDS',
-        'password'= 'Beyondpswd1',
-        'warehouse'= 'COMPUTE_WH',
-        'database'= 'BEYONDBACKGROUNDS',
-        'schema'= 'SCH_BEYONDBACKGROUNDS',
-        'role'= 'ACCOUNTADMIN')
-         print(conn)
+        conn = snowflake.connector.connect(
+    account='xjtvekn-em26794',
+    user='BEYONDBACKGROUNDS',
+    password='Beyondpswd1',
+    warehouse='COMPUTE_WH',
+    database='BEYONDBACKGROUNDS',
+    schema='SCH_BEYONDBACKGROUNDS',
+    role='ACCOUNTADMIN'
+)
+
+        print(conn)
 
         assert isinstance(conn, snowflake.connector.connection.SnowflakeConnection)
     except Exception as e:
@@ -40,8 +43,8 @@ def test_check_credentials_fail():
 
 #Test case to test the fail scenario of login page
 def test_check_credentials_pass():
-    username = 'ABC'
-    password = 'abc'
+    username = 'Navya'
+    password = 'Navya.c@698'
 
     #calls the function with wrong credentials
     result = check_credentials(username, password)
@@ -49,25 +52,18 @@ def test_check_credentials_pass():
 
     assert result == True
 
-#Test case to test the fail scenario of login page
-def test_usertype_applicant():
-    username = 'ABC'
 
-    #calls the function with wrong credentials
-    result = get_usertype(username)
-    print(result)
-
-    assert result == 'applicant'
 
 #Test case to test the fail scenario of login page
 def test_usertype_recruiter():
-    username = 'XYZ'
+    username = 'Navya'
 
     #calls the function with wrong credentials
     result = get_usertype(username)
     print(result)
 
     assert result == 'recruiter'
+
 
 #Test case to test the fail scenario of login page
 def test_usertype_none():

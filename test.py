@@ -19,7 +19,7 @@ def test_snowflake_connection():
         'database'= 'BEYONDBACKGROUNDS',
         'schema'= 'SCH_BEYONDBACKGROUNDS',
         'role'= 'ACCOUNTADMIN')
-        print(conn)
+         print(conn)
 
         assert isinstance(conn, snowflake.connector.connection.SnowflakeConnection)
     except Exception as e:

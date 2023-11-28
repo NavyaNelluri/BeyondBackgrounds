@@ -54,7 +54,7 @@ def test_check_credentials_pass():
 
 #Test case to test the fail scenario of login page
 def test_usertype_applicant():
-    username = 'prathibha01'
+    username = 'josna123'
 
     #calls the function with wrong credentials
     result = get_usertype(username)

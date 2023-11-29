@@ -102,6 +102,8 @@ def login():
         password = request.form['password']
 
         user_type = get_usertype(username)
+
+        session['username'] = username
         
         # Check the database for the username and password
         if check_credentials(username, password) and user_type == 'recruiter':
@@ -307,13 +309,13 @@ def JobPortal():
         app.logger.error(f"An error occurred: {str(e)}")
         flash('An error occurred. Please try again later.', 'error')
 
-def get_user_details():
+def get_user_details(username):
     # Replace the connection details with your database connection
     conn = create_snowflake_connection()
     cursor = conn.cursor()
 
     # Assuming there's a 'users' table with columns 'name', 'email', etc.
-    cursor.execute("SELECT name, email FROM users WHERE user_id = 1")  # Change the query as needed
+    cursor.execute("SELECT name, email FROM JOBAPPLICANTS WHERE name = %s", (username,))  # Change the query as needed
     user_details = cursor.fetchone()
 
     conn.close()
@@ -323,7 +325,8 @@ def get_user_details():
 # Route to render the user profile page
 @app.route('/UserProfile')
 def user_profile():
-    user_details = get_user_details()
+    username = session.get('username')
+    user_details = get_user_details(username)
     return render_template('UserProfile.html', user_details=user_details)
 
 @app.route('/recruiter/dashboard')

@@ -9,7 +9,7 @@ app.error_message = None
 # Function to create a Snowflake connection
 def create_snowflake_connection():
     snowflake_config = {
-        'account': 'anohoex-igb93598',
+        'account': 'xjtvekn-em26794',
         'user': 'BEYONDBACKGROUNDS',
         'password': 'Beyondpswd1',
         'warehouse': 'COMPUTE_WH',
@@ -320,16 +320,11 @@ def get_user_details():
 
     return user_details
 
-@app.route('/user_profile')
-def user_profile():
-    user_details = get_user_details()
-    return render_template('user_profile.html', user_details=user_details)
-
 # Route to render the user profile page
-@app.route('/user_profile')
+@app.route('/UserProfile')
 def user_profile():
     user_details = get_user_details()
-    return render_template('user_profile.html', user_details=user_details)
+    return render_template('UserProfile.html', user_details=user_details)
 
 @app.route('/recruiter/dashboard')
 def recruiter_dashboard():

@@ -23,11 +23,17 @@
 
 </head>
 <body>
+    <!-- Header Image (replace 'pic2.jpg' with your image filename) -->
+    <img class="header-image" src="{{ url_for('static', filename='Wallpaper.jpg') }}" alt="Beyond Backgrounds Image">
     
+    <!-- Title text (replace 'Beyond Backgrounds' with your desired title) -->
+    <div class="scrolling-title">Beyond Backgrounds</div>
     <div class="navigation">
         <ul>
-            <li><a href="/Recruiter_home">Recruiter Dashboard</a></li>
-            <li><a href="/">Logout</a></li>
+            <li><a href="/login">Login</a></li>
+            <li><a href="/register/recruiter">Recruiter Register</a></li>
+            <li><a href="/JobPortal">Job Portal</a></li>
+            <li><a href="/about">About</a></li>
 
         </ul>
     </div>
@@ -46,7 +52,7 @@
 
     <!-- Box 3 -->
     <div class="box" onmouseover="highlightBox(this)" onmouseout="unhighlightBox(this)">
-        <h2><a href="/register/recruiter">Filter Candidates</a></h2>
+        <h2><a href="/filter_applicants">Filter Candidates</a></h2>
         <p>Please click on the link to filter candidates.</p>
     </div>
 

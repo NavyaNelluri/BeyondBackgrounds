@@ -41,8 +41,8 @@ def register(user_type):
         
                 # Execute an SQL insert statement using the Snowflake connection
                 cursor = conn.cursor()
-                query = "INSERT INTO UserDetails(Username, Password, details, ContactEmail) VALUES (%s, %s, %s, %s)"
-                cursor.execute(query, (Username_form, Password_form, CompanyName, ContactEmail))
+                query = "INSERT INTO UserDetails(Username, Password, details, ContactEmail,UserType) VALUES (%s, %s, %s, %s,%s)"
+                cursor.execute(query, (Username_form, Password_form, CompanyName, ContactEmail,user_type))
                 cursor.close()
         
                 # Commit the transaction
@@ -68,14 +68,14 @@ def register(user_type):
                 Password_form = request.form['password_form']
                 CompanyName = request.form['fullname']
                 ContactEmail = request.form['email']
-        
+                print("hi")
                 # Create a new Snowflake connection
                 conn = create_snowflake_connection()
         
                 # Execute an SQL insert statement using the Snowflake connection
                 cursor = conn.cursor()
-                query = "INSERT INTO UserDetails(Username, Password, details, ContactEmail) VALUES (%s, %s, %s, %s)"
-                cursor.execute(query, (Username_form, Password_form, CompanyName, ContactEmail))
+                query = "INSERT INTO UserDetails(Username, Password, details, ContactEmail, UserType) VALUES (%s, %s, %s, %s,%s)"
+                cursor.execute(query, (Username_form, Password_form, CompanyName, ContactEmail,user_type))
                 cursor.close()
         
                 # Commit the transaction
@@ -184,10 +184,6 @@ def Applicant_home():
 def home():
     return render_template('home.html')
 
-@app.route('/register/applicant', methods=['GET', 'POST'])
-def register_applicant():  
-    return render_template('applicant_register.html')
-
 @app.route('/applicant/dashboard')
 def applicant_dashboard():
     return render_template('applicant_dashboard.html')
@@ -248,15 +244,17 @@ def Applicant_Details():
             # Extract job details from the form
             NAME = request.form['NAME']
             CONTACT_NUMBER = request.form['CONTACT_NUMBER']
+            GENDER = request.form['GENDER']
             Email = request.form['Email']
             SKILLS = request.form['SKILLS']
             EXPECTED_SALARY = request.form['EXPECTED_SALARY']
             CURRENT_EMPLOYER = request.form['CURRENT_EMPLOYER']
             CURRENT_SALARY = request.form['CURRENT_SALARY']
             PREFERRED_LOCATION = request.form['PREFERRED_LOCATION']
-            Criminal_Record = request.form['Criminal Record']
-            Reason = request.form['Reason']
- 
+            Criminal_Record = request.form['CriminalRecord']
+            Reason = request.form.get('Reason') if Criminal_Record == 'yes' else "Not Applicable"
+            print(f"Criminal_Record: {Criminal_Record}, Reason: {Reason}")
+
             # Create a new Snowflake connection
             conn = create_snowflake_connection()
  
@@ -264,12 +262,12 @@ def Applicant_Details():
             cursor = conn.cursor()
  
             query = """
-INSERT INTO JOBAPPLICANTS (NAME, CONTACT_NUMBER, Email, SKILLS, EXPECTED_SALARY, CURRENT_EMPLOYER, CURRENT_SALARY, PREFERRED_LOCATION, Criminal_Record, Reason)
-VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+INSERT INTO JOBAPPLICANTS (NAME, CONTACT_NUMBER,GENDER, Email, SKILLS, EXPECTED_SALARY, CURRENT_EMPLOYER, CURRENT_SALARY, PREFERRED_LOCATION, Criminal_Record, Reason)
+VALUES (%s, %s, %s,%s, %s, %s, %s, %s, %s, %s, %s)
 """         
             # Execute the query with parameters
             cursor.execute(query, (
-                NAME, CONTACT_NUMBER, Email, SKILLS, EXPECTED_SALARY, CURRENT_EMPLOYER,
+                NAME, CONTACT_NUMBER,GENDER,  Email, SKILLS, EXPECTED_SALARY, CURRENT_EMPLOYER,
                 CURRENT_SALARY, PREFERRED_LOCATION, Criminal_Record, Reason)  # Fix typo here
             )
 
@@ -310,6 +308,53 @@ def JobPortal():
         print(e)
         app.logger.error(f"An error occurred: {str(e)}")
         flash('An error occurred. Please try again later.', 'error')
+@app.route('/filter_applicants', methods=['GET', 'POST'])
+def filter_applicants():
+    try:
+        if request.method == 'POST':
+            # Retrieve filter parameters from the form
+            skills_filter = request.form.get('skills')
+            criminal_record_filter = request.form.get('criminal_record')
+
+            # Create a Snowflake connection
+            conn = create_snowflake_connection()
+
+            # Build the SQL query based on the filter parameters
+            query = "SELECT * FROM JOBAPPLICANTS WHERE "
+
+            if skills_filter:
+                query += f"  SKILLS LIKE '%{skills_filter}%' and"
+            else:
+                query += f" "                
+            if criminal_record_filter == 'yes':
+                query += "   CRIMINAL_RECORD = 'yes'"
+            elif criminal_record_filter == 'no':
+                query += "   CRIMINAL_RECORD = 'no'"
+            else:
+                query = "SELECT * FROM JOBAPPLICANTS"
+            print(query)
+
+            # Execute the SQL query
+            cursor = conn.cursor()
+            cursor.execute(query)
+            print("hi")
+            filtered_applicants = cursor.fetchall()
+            cursor.close()
+            conn.close()
+
+            return render_template('filter_applicants.html', jobs=filtered_applicants)
+
+    except Exception as e:
+        print(e)
+        app.logger.error(f"An error occurred: {str(e)}")
+        flash('An error occurred. Please try again later.', 'error')
+
+        # You can include additional information in the template context
+        return render_template('filter_applicants.html', jobs=[], error_message=str(e))
+
+    # Add a fallback return statement if the 'try' block doesn't execute successfully
+    return render_template('filter_applicants.html', jobs=[], error_message="An unexpected error occurred.")
+
 
 def get_user_details(username):
     # Replace the connection details with your database connection

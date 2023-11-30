@@ -6,42 +6,46 @@
     <title>Job Postings - BeyondBackgrounds</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='register.css') }}">
 	<style>
-        table {
-            border-collapse: collapse;
-            width: 100%;
-        }
+        <style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 20px auto; /* Adjust margin as needed */
+    }
 
-        table, th, td {
-            border: 1px solid black;
-        }
+    th, td {
+        border: 1px solid black;
+        padding: 8px;
+        text-align: left;
+    }
 
-        th, td {
-            padding: 8px;
-            text-align: left;
-        }
+    tr:nth-child(even) {
+        background-color: beige;
+    }
 
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
+    tr:nth-child(odd) {
+        background-color: white;
+    }
 
-        h1 {
-            text-align: center;
-        }
+    h1 {
+        text-align: center;
+    }
+</style>
 
-        table {
-            margin: 20px auto;
-            transform: translate(0%, 80%);
-        }
     </style>
 </head>
 <body>
     <div class="navigation">
         <ul>
-            <li><a href="/Recruiter_home">Dashboard</a></li>
+            <li><a href="/">Logout</a></li>
             <li><a href="/about">About</a></li>
 
         </ul>
+	<div class="scrolling-title">Beyond Backgrounds</div>
+
     </div>
+	<br></br>
+	<br></br>
     <table>
         <tr>
             <th>Company Name</th>

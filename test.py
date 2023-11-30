@@ -1,10 +1,8 @@
 
 import pytest
 import snowflake.connector
-from app import check_credentials,get_usertype  # Import your app's function
+from app import check_credentials,get_usertype, get_user_details, update_user_details
 from app import app
-
-
 
 # Define your Snowflake connection parameters for testing 
 #(this test case will pass since credentials are wrong)
@@ -78,6 +76,70 @@ def test_usertype_none():
     print(result)
 
     assert result == None
+
+#Test case to test the fail scenario of login page
+def test_user_genderinfo():
+    username = 'josna'
+
+    #calls the function with wrong credentials
+    result = get_user_details(username)
+    print(result)
+
+    assert result[1] == 'female'
+
+#Test case to test the fail scenario of login page
+def test_user_email():
+    username = 'josna'
+
+    #calls the function with wrong credentials
+    result = get_user_details(username)
+
+    assert result[3] == 'josna@gmail.com'
+
+#Test case to test the fail scenario of login page
+def test_nonuser_info():
+    username = 'ABC'
+
+    #calls the function with wrong credentials
+    result = get_user_details(username)
+
+    assert result == None
+
+#Test case to test the fail scenario of login page
+def test_update_location():
+    username = 'josna'
+    field='preferred_location'
+    new_value = 'chicago'
+
+    #calls the function with wrong credentials
+    update_user_details(username, field, new_value)
+    result = get_user_details(username)
+
+    assert result[7] == 'chicago'
+
+#Test case to test the fail scenario of login page
+def test_update_name():
+    username = 'josna'
+    field='name'
+    new_value = 'Josna'
+
+    #calls the function with wrong credentials
+    update_user_details(username, field, new_value)
+    result = get_user_details(username)
+
+    assert result[0] == 'josna'
+
+#Test case to test the fail scenario of login page
+def test_update_gender():
+    username = 'josna'
+    field='gender'
+    new_value = 'male'
+
+    #calls the function with wrong credentials
+    update_user_details(username, field, new_value)
+    result = get_user_details(username)
+
+    assert result[1] == 'female'  
 
 def test_about_route():
     client = app.test_client()

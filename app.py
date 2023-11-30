@@ -329,8 +329,9 @@ def get_user_details(username):
 def update_user_details(username, field, new_value):
     conn = create_snowflake_connection()
     cursor = conn.cursor()
-    update_query = f"UPDATE jobapplicants SET {field} = %s WHERE name = %s"
-    cursor.execute(update_query, (new_value, username))
+    if field != 'name' and field != 'gender':
+        update_query = f"UPDATE jobapplicants SET {field} = %s WHERE name = %s"
+        cursor.execute(update_query, (new_value, username))
     conn.commit()
     conn.close()
 
@@ -344,7 +345,7 @@ def user_profile():
 def update_profile():
     if request.method == 'POST':
         username = session.get('username')
-        updated_fields = ['name', 'gender', 'email', 'contact_number', 'skills', 'expected_salary', 'current_employer', 'preferred_location']
+        updated_fields = ['email', 'contact_number', 'skills', 'expected_salary', 'current_employer', 'preferred_location']
         for field in updated_fields:
             new_value = request.form.get(field)
             if new_value is not None and new_value != '':

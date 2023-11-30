@@ -315,7 +315,8 @@ def get_user_details(username):
     cursor = conn.cursor()
 
     # Assuming there's a 'users' table with columns 'name', 'email', etc.
-    cursor.execute("SELECT name, email FROM JOBAPPLICANTS WHERE name = %s", (username,))  # Change the query as needed
+    cursor.execute("SELECT name, gender, contact_number, email,skills, expected_salary, current_employer, \
+                   preferred_location, criminal_record, reason  FROM JOBAPPLICANTS WHERE name = %s", (username,))  # Change the query as needed
     user_details = cursor.fetchone()
 
     conn.close()

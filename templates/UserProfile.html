@@ -1,40 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        h1 {
-            color: #333;
-        }
-        .profile {
-            display: flex;
-            align-items: center;
-        }
-        .profile img {
-            border-radius: 50%;
-            margin-right: 20px;
-        }
-        .details {
-            color: #555;
-        }
-    </style>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{{ url_for('static', filename='register.css') }}">
+        <title>Register - BeyondBackgrounds</title>
+        <style>
+            /* Style for the rectangular box */
+            .box {
+                width: 400px; /* Adjust width as needed */
+                border: 2px solid #333;
+                margin: 10px auto;
+                padding: 20px;
+                text-align: center;
+                background-color: bisque;
+                transition: transform 0.2s, background-color 0.2s;
+            }
+
+            .edit-button {
+                background-color: #4CAF50;
+                color: white;
+                border: none;
+                padding: 8px 16px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 14px;
+                margin: 4px 2px;
+                cursor: pointer;
+            }
+        </style>
+    </head>
 <body>
-
-    <h1>User Profile</h1>
-
-    <div class="profile">
-        <div class="details">
-            <p><strong>Name:</strong> John Doe</p>
-            <p><strong>Email:</strong> john.doe@example.com</p>
-        </div>
+    <img class="header-image" src="{{ url_for('static', filename='Wallpaper.jpg') }}" alt="Beyond Backgrounds Image">
+    <div class="navigation">
+        <ul>
+            <li><a href="/Applicant_home">Applicant Dashboard</a></li>
+            <li><a href="/UserProfile">Applicant Info</a></li>
+            <li><a href="/">Logout</a></li>
+        </ul>
     </div>
-
+    <h1>My Profile</h1>
+    <div class="box">
+        <h3>User Details:</h3>
+        {% if user_details %}
+            <p><strong>Name:</strong> {{ user_details[0] }} <button class="edit-button">Edit</button></p>
+            <p><strong>Gender:</strong> {{ user_details[1] }} <button class="edit-button">Edit</button></p>
+            <p><strong>Email:</strong> {{ user_details[2] }} <button class="edit-button">Edit</button></p>
+            <p><strong>Contact Number:</strong> {{ user_details[3] }} <button class="edit-button">Edit</button></p>
+            <p><strong>Skills:</strong> {{ user_details[4] }} <button class="edit-button">Edit</button></p>
+            <p><strong>Expected Salary:</strong> {{ user_details[5] }} <button class="edit-button">Edit</button></p>
+            <p><strong>Current Employer:</strong> {{ user_details[6] }} <button class="edit-button">Edit</button></p>
+            <p><strong>Preferred Location:</strong> {{ user_details[7] }} <button class="edit-button">Edit</button></p>
+            <p><strong>Criminal Record:</strong> {{ user_details[8] }} <button class="edit-button">Edit</button></p>
+            <p><strong>Reason:</strong> {{ user_details[9] }} <button class="edit-button">Edit</button></p>
+            <!-- Add more fields as needed -->
+        {% else %}
+            <p>No user details found.</p>
+        {% endif %}
+    </div>
+    <!-- Add any additional HTML content or styling as needed -->
 </body>
 </html>

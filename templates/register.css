@@ -1,15 +1,12 @@
-.header-image {
-    width: 100%;
-    height: auto;
-}
 
 /* Reset some default styles for the body element */
 body {
     font-family: Arial, sans-serif;
-    background-color: #ffffff; /* Replace with the desired background color */
+    background-color: #red; /* Replace with the desired background color */
     margin: 0;
     padding: 0;
 }
+
 
 /* Style for the main container */
 .container {
@@ -17,11 +14,13 @@ body {
     border: 1px solid #ccc;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
     margin: 0 auto;
     padding: 20px;
-    margin-top: 0px;
+    margin-top: 20px;
     text-align: center;
 }
+
 
 /* Style for the heading */
 h2 {
@@ -30,8 +29,9 @@ h2 {
 
 /* Style for the form */
 form {
-    margin-top: 0px;
+    margin-top: 20px;
 }
+
 
 /* Style for form groups within the form */
 .form-group {
@@ -39,12 +39,14 @@ form {
     text-align: left;
 }
 
+
 /* Style for labels within form groups */
 label {
     display: block;
     font-weight: bold;
     color: #333;
 }
+
 
 /* Style for text, password, and email input fields */
 input[type="text"],
@@ -56,10 +58,6 @@ input[type="email"] {
     border-radius: 4px;
 }
 
-input[type="radio"] {
-    display: inline-block;
-    margin-right: 10px;
-}
 
 /* Style for the submit button */
 input[type="submit"] {
@@ -71,15 +69,18 @@ input[type="submit"] {
     cursor: pointer;
 }
 
+
 /* Style for the submit button on hover */
 input[type="submit"]:hover {
-    background-color: #b34e00;
+    background-color: #0056b3;
 }
+
 
 /* Style for paragraphs within the container */
 p {
     margin-top: 10px;
 }
+
 
 /* Style for links within the container */
 a {

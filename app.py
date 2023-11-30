@@ -100,18 +100,21 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
+        user_type = request.form['user_type']
 
-        user_type = get_usertype(username)
+        user_type_from_database = get_usertype(username)
+
+        session['username'] = username
         
         # Check the database for the username and password
-        if check_credentials(username, password) and user_type == 'recruiter':
+        if check_credentials(username, password) and user_type == user_type_from_database and user_type == 'recruiter':
             #Redirects to Dashboard on successful login
-            return redirect(url_for('recruiter_dashboard'))
-        elif check_credentials(username, password) and user_type == 'applicant':
-            return redirect(url_for('applicant_dashboard'))
+            return redirect(url_for('Recruiter_home'))
+        elif check_credentials(username, password) and user_type == user_type_from_database and user_type == 'applicant':
+            return redirect(url_for('Applicant_home'))
         else:
             #Error message on login failure
-            app.error_message = 'Invalid username or password'
+            app.error_message = 'Invalid username or password or user type'
 
     return render_template('login.html', error_message=app.error_message)
 
@@ -172,6 +175,7 @@ def about():
 @app.route('/Recruiter_home')
 def Recruiter_home():
     return render_template('Recruiter_home.html')
+
 @app.route('/Applicant_home')
 def Applicant_home():
     return render_template('Applicant_home.html')
@@ -351,6 +355,49 @@ def filter_applicants():
     # Add a fallback return statement if the 'try' block doesn't execute successfully
     return render_template('filter_applicants.html', jobs=[], error_message="An unexpected error occurred.")
 
+
+def get_user_details(username):
+    # Replace the connection details with your database connection
+    conn = create_snowflake_connection()
+    cursor = conn.cursor()
+
+    # Assuming there's a 'users' table with columns 'name', 'email', etc.
+    cursor.execute("SELECT name, gender, contact_number, email,skills, expected_salary, current_employer, \
+                   preferred_location, criminal_record, reason  FROM JOBAPPLICANTS WHERE name = %s", (username,))  # Change the query as needed
+    user_details = cursor.fetchone()
+
+    conn.close()
+
+    return user_details
+
+
+def update_user_details(username, field, new_value):
+    conn = create_snowflake_connection()
+    cursor = conn.cursor()
+    if field != 'name' and field != 'gender':
+        update_query = f"UPDATE jobapplicants SET {field} = %s WHERE name = %s"
+        cursor.execute(update_query, (new_value, username))
+    conn.commit()
+    conn.close()
+
+@app.route('/UserProfile')
+def user_profile():
+    username = session.get('username')
+    user_details = get_user_details(username)
+    return render_template('UserProfile.html', user_details=user_details)
+
+@app.route('/update_profile', methods=['POST'])
+def update_profile():
+    if request.method == 'POST':
+        username = session.get('username')
+        updated_fields = ['email', 'contact_number', 'skills', 'expected_salary', 'current_employer', 'preferred_location']
+        for field in updated_fields:
+            new_value = request.form.get(field)
+            if new_value is not None and new_value != '':
+                update_user_details(username, field, new_value)
+        return redirect(url_for('user_profile'))
+    else:
+        return redirect(url_for('user_profile'))
 
 @app.route('/recruiter/dashboard')
 def recruiter_dashboard():

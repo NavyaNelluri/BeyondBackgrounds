@@ -10,7 +10,8 @@ from app import app
 def test_snowflake_connection():
     # This test checks if the Snowflake connection can be established.
 
-    conn = snowflake.connector.connect(
+    try:
+        conn = snowflake.connector.connect(
     account='xjtvekn-em26794',
     user='BEYONDBACKGROUNDS',
     password='Beyondpswd1',

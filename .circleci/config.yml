@@ -51,5 +51,4 @@ workflows:
           filters:
             branches:
               only: NavyaNelluri-patch-10
-          requires:
-            - test
+

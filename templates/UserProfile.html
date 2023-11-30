@@ -1,38 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="{{ url_for('static', filename='register.css') }}">
-        <title>Register - BeyondBackgrounds</title>
-        <style>
-            /* Style for the rectangular box */
-            .box {
-                width: 400px; /* Adjust width as needed */
-                border: 2px solid #333;
-                margin: 10px auto;
-                padding: 20px;
-                text-align: center;
-                background-color: bisque;
-                transition: transform 0.2s, background-color 0.2s;
-            }
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='register.css') }}">
+    <title>User Profile - BeyondBackgrounds</title>
+    <style>
+        /* Add any additional styling as needed */
+        .box {
+        width: 600px; /* Adjust width as needed */
+        border: 2px solid #3498db; /* Border color */
+        margin: 70px;
+        padding: 20px;
+        text-align: left;
+        background-color: #ecf0f1; /* Background color */
+        transition: transform 0.2s, background-color 0.2s;
+        border-radius: 10px; /* Rounded corners */
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Box shadow for depth */
+    }
+        .edit-button {
+            background-color: transparent;
+            border: none;
+            padding: 0;
+            font-size: 20px;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
 
-            .edit-button {
-                background-color: #4CAF50;
-                color: white;
-                border: none;
-                padding: 8px 16px;
-                text-align: center;
-                text-decoration: none;
-                display: inline-block;
-                font-size: 14px;
-                margin: 4px 2px;
-                cursor: pointer;
-            }
-        </style>
-    </head>
+        .edit-button:hover {
+            color: #4CAF50;
+        }
+
+        .save-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .save-button:hover {
+            background-color: #45a049;
+        }
+
+        /* Add styling for the new value text boxes */
+        .new-value-input {
+            display: none;
+            width: 80%; /* Adjust width as needed */
+            padding: 8px;
+            margin: 8px 0;
+            box-sizing: border-box;
+        }
+    </style>
+    <script>
+        function showNewValueInput(field) {
+            var inputElement = document.getElementById(`new-value-input-${field}`);
+            inputElement.style.display = "block";
+        }
+    </script>
+</head>
 <body>
-    <img class="header-image" src="{{ url_for('static', filename='Wallpaper.jpg') }}" alt="Beyond Backgrounds Image">
     <div class="navigation">
         <ul>
             <li><a href="/Applicant_home">Applicant Dashboard</a></li>
@@ -40,24 +69,35 @@
             <li><a href="/">Logout</a></li>
         </ul>
     </div>
-    <h1>My Profile</h1>
     <div class="box">
-        <h3>User Details:</h3>
-        {% if user_details %}
-            <p><strong>Name:</strong> {{ user_details[0] }} <button class="edit-button">Edit</button></p>
-            <p><strong>Gender:</strong> {{ user_details[1] }} <button class="edit-button">Edit</button></p>
-            <p><strong>Email:</strong> {{ user_details[2] }} <button class="edit-button">Edit</button></p>
-            <p><strong>Contact Number:</strong> {{ user_details[3] }} <button class="edit-button">Edit</button></p>
-            <p><strong>Skills:</strong> {{ user_details[4] }} <button class="edit-button">Edit</button></p>
-            <p><strong>Expected Salary:</strong> {{ user_details[5] }} <button class="edit-button">Edit</button></p>
-            <p><strong>Current Employer:</strong> {{ user_details[6] }} <button class="edit-button">Edit</button></p>
-            <p><strong>Preferred Location:</strong> {{ user_details[7] }} <button class="edit-button">Edit</button></p>
-            <p><strong>Criminal Record:</strong> {{ user_details[8] }} <button class="edit-button">Edit</button></p>
-            <p><strong>Reason:</strong> {{ user_details[9] }} <button class="edit-button">Edit</button></p>
-            <!-- Add more fields as needed -->
-        {% else %}
-            <p>No user details found.</p>
-        {% endif %}
+        <h3>My Profile</h3>
+        <form action="{{ url_for('update_profile') }}" method="post">
+            {% if user_details %}
+                <p><strong>Name:</strong> {{ user_details[0] }} 
+                <p><strong>Gender:</strong> {{ user_details[1] }} 
+                <p><strong>Contact Number:</strong> {{ user_details[2] }} <button type="button" class="edit-button" onclick="showNewValueInput('contact_number')">&#9998;</button></p>
+                <p><strong>Email:</strong> {{ user_details[3] }} <button type="button" class="edit-button" onclick="showNewValueInput('email')">&#9998;</button></p>
+                <p><strong>Skills:</strong> {{ user_details[4] }} <button type="button" class="edit-button" onclick="showNewValueInput('skills')">&#9998;</button></p>
+                <p><strong>Expected Salary:</strong> {{ user_details[5] }} <button type="button" class="edit-button" onclick="showNewValueInput('expected_salary')">&#9998;</button></p>
+                <p><strong>Current Employer:</strong> {{ user_details[6] }} <button type="button" class="edit-button" onclick="showNewValueInput('current_employer')">&#9998;</button></p>
+                <p><strong>Preferred Location:</strong> {{ user_details[7] }} <button type="button" class="edit-button" onclick="showNewValueInput('preferred_location')">&#9998;</button></p>
+                <p><strong>Criminal Record:</strong> {{ user_details[8] }} <button type="button" class="edit-button" onclick="showNewValueInput('criminal_record')">&#9998;</button></p>
+                <p><strong>Reason:</strong> {{ user_details[9] }} <button type="button" class="edit-button" onclick="showNewValueInput('reason')">&#9998;</button></p>
+
+                <!-- Add text boxes for editable fields -->
+                <p id="new-value-input-contact_number" class="new-value-input"><strong>New Value for Contact Number:</strong> <input type="text" name="contact_number" placeholder="Enter new value"></p>
+                <p id="new-value-input-email" class="new-value-input"><strong>New Value for Email:</strong> <input type="text" name="email" placeholder="Enter new value"></p>  
+                <p id="new-value-input-skills" class="new-value-input"><strong>New Value for Skills:</strong> <input type="text" name="skills" placeholder="Enter new value"></p>
+                <p id="new-value-input-expected_salary" class="new-value-input"><strong>New Value for Expected Salary:</strong> <input type="text" name="expected_salary" placeholder="Enter new value"></p>
+                <p id="new-value-input-current_employer" class="new-value-input"><strong>New Value for Current Employer:</strong> <input type="text" name="current_employer" placeholder="Enter new value"></p>
+                <p id="new-value-input-preferred_location" class="new-value-input"><strong>New Value for Preferred Location:</strong> <input type="text" name="preferred_location" placeholder="Enter new value"></p>
+
+                <!-- Save button -->
+                <input type="submit" value="Save Changes" class="save-button">
+            {% else %}
+                <p>No user details found.</p>
+            {% endif %}
+        </form>
     </div>
     <!-- Add any additional HTML content or styling as needed -->
 </body>

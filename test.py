@@ -12,7 +12,7 @@ from app import app
 def test_snowflake_connection():
     # This test checks if the Snowflake connection can be established.
     try:
-        conn = snowflake.connector.connect(account= 'anohoex-igb93598',
+        conn = snowflake.connector.connect(account= 'xjtvekn-em26794',
         user= 'BEYONDBACKGROUNDS',
         password= 'Beyondpswd1',
         warehouse= 'COMPUTE_WH',
@@ -40,8 +40,8 @@ def test_check_credentials_fail():
 
 #Test case to test the fail scenario of login page
 def test_check_credentials_pass():
-    username = 'ABC'
-    password = 'abc'
+    username = 'josna'
+    password = 'josna123'
 
     #calls the function with wrong credentials
     result = check_credentials(username, password)
@@ -51,7 +51,7 @@ def test_check_credentials_pass():
 
 #Test case to test the fail scenario of login page
 def test_usertype_applicant():
-    username = 'ABC'
+    username = 'josna'
 
     #calls the function with wrong credentials
     result = get_usertype(username)
@@ -61,7 +61,7 @@ def test_usertype_applicant():
 
 #Test case to test the fail scenario of login page
 def test_usertype_recruiter():
-    username = 'XYZ'
+    username = 'Navya'
 
     #calls the function with wrong credentials
     result = get_usertype(username)

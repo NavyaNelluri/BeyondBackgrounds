@@ -12,7 +12,7 @@ jobs:
       - run:
           name: "Install Dependencies"
           command: |
-            pip install pytest snowflake-connector-python
+            pip install pytest snowflake-connector-python flask
       - run:
           name: "Run application"
           command: "python app.py"

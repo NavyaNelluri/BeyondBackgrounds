@@ -12,10 +12,10 @@ jobs:
       - run:
           name: "Install Dependencies"
           command: |
-            pip install pytest numpy
+            pip install pytest snowflake-connector-python
       - run:
-          name: "Run tests"
-          command: "pytest test_sparse_recommender.py"
+          name: "Run application"
+          command: "python app.py"
       
 
   build-and-push-image:

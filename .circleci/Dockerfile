@@ -7,6 +7,8 @@ WORKDIR /app
 # Copy the current directory contents into the container at /app
 COPY . /app
 
+EXPOSE 80
+
 # Install dependencies
 RUN pip install pytest
 RUN pip install snowflake-connector-python

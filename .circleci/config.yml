@@ -49,4 +49,4 @@ workflows:
       - build_and_push:
           filters:
             branches:
-              only: NavyaNelluri-patch-10  # Specify the branch you want to trigger the deployment
+              only: main  # Specify the branch you want to trigger the deployment

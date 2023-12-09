@@ -45,10 +45,10 @@ categories like criminal record or skill set.
 2. Framework for mapping process
 3. Connection to Database.
 
-##Snowflake table list:
- BEYONDBACKGROUNDS.SCH_BEYONDBACKGROUNDS.USERDETAILS
- BEYONDBACKGROUNDS.SCH_BEYONDBACKGROUNDS.JOBDETAILS
- BEYONDBACKGROUNDS.SCH_BEYONDBACKGROUNDS.JOBAPPLICANTS
+## Snowflake table list:
+ 1. BEYONDBACKGROUNDS.SCH_BEYONDBACKGROUNDS.USERDETAILS
+ 2. BEYONDBACKGROUNDS.SCH_BEYONDBACKGROUNDS.JOBDETAILS
+ 3. BEYONDBACKGROUNDS.SCH_BEYONDBACKGROUNDS.JOBAPPLICANTS
 
 ## Instructions for setting up a development environment:
 1. To run our application, python development environment is required.

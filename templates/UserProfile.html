@@ -1,3 +1,4 @@
+<!-- Webpage to display Applicant Info -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,9 +7,8 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='register.css') }}">
     <title>User Profile - BeyondBackgrounds</title>
     <style>
-        /* Add any additional styling as needed */
         .box {
-        width: 600px; /* Adjust width as needed */
+        width: 600px; 
         border: 2px solid #3498db; /* Border color */
         margin: 70px;
         padding: 20px;
@@ -44,11 +44,9 @@
         .save-button:hover {
             background-color: #45a049;
         }
-
-        /* Add styling for the new value text boxes */
         .new-value-input {
             display: none;
-            width: 80%; /* Adjust width as needed */
+            width: 80%; 
             padding: 8px;
             margin: 8px 0;
             box-sizing: border-box;
@@ -62,6 +60,7 @@
     </script>
 </head>
 <body>
+    <!-- Header Image  -->
     <div class="navigation">
         <ul>
             <li><a href="/Applicant_home">Applicant Dashboard</a></li>
@@ -84,7 +83,7 @@
                 <p><strong>Criminal Record:</strong> {{ user_details[8] }} <button type="button" class="edit-button" onclick="showNewValueInput('criminal_record')">&#9998;</button></p>
                 <p><strong>Reason:</strong> {{ user_details[9] }} <button type="button" class="edit-button" onclick="showNewValueInput('reason')">&#9998;</button></p>
 
-                <!-- Add text boxes for editable fields -->
+                <!-- text boxes for editable fields -->
                 <p id="new-value-input-contact_number" class="new-value-input"><strong>New Value for Contact Number:</strong> <input type="text" name="contact_number" placeholder="Enter new value"></p>
                 <p id="new-value-input-email" class="new-value-input"><strong>New Value for Email:</strong> <input type="text" name="email" placeholder="Enter new value"></p>  
                 <p id="new-value-input-skills" class="new-value-input"><strong>New Value for Skills:</strong> <input type="text" name="skills" placeholder="Enter new value"></p>
@@ -99,6 +98,5 @@
             {% endif %}
         </form>
     </div>
-    <!-- Add any additional HTML content or styling as needed -->
 </body>
 </html>

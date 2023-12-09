@@ -1,11 +1,11 @@
-<!DOCTYPE html> <!-- Declaration of the document type and version of HTML -->
+<!-- Applicant Registration -->
+<!DOCTYPE html> 
 <html>
 <head>
     <meta charset="UTF-8"> <!-- Character encoding specification for the document -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Viewport settings for responsive design -->
     <title>Register - BeyondBackgrounds</title> <!-- Title of the web page displayed in the browser tab -->
     <link rel="stylesheet" href="{{ url_for('static', filename='register.css') }}">
-     <!-- Link to an external CSS file -->
      <style>
        	.header-image {
     width: 1100px;
@@ -33,11 +33,9 @@
     </style>
 </head>
 <body>
-    <!-- Image (replace 'image-url.jpg' with your image URL) -->
+    <!-- Image  -->
     <img class="header-image" src="{{ url_for('static', filename='Wallpaper.jpg') }}" alt="Beyond Backgrounds Image"> <!-- Image displayed at the top of the page with an alternative text -->
 	<div class="scrolling-title">Beyond Backgrounds</div>
-
-
     <div class="navigation">
         <ul>
             <!-- Navigation menu with links to different pages -->
@@ -45,8 +43,6 @@
             <li><a href="/register/recruiter">Recruiter Register</a></li>
             <li><a href="/register/applicant">Applicant Register</a></li>
             <li><a href="/about">About</a></li>
-
-
         </ul>
     </div>
     

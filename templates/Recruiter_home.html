@@ -1,3 +1,4 @@
+<!-- Recruiter Homepage -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -5,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="{{ url_for('static', filename='register.css') }}">
 
-    <title>Register - BeyondBackgrounds</title>
+    <title>Recruiter - BeyondBackgrounds</title>
     <style>
         /* Style for the rectangular boxes */
         .box {
@@ -23,34 +24,28 @@
 
 </head>
 <body>
-    <!-- Header Image (replace 'pic2.jpg' with your image filename) -->
+    <!-- Header Image -->
     <img class="header-image" src="{{ url_for('static', filename='Wallpaper.jpg') }}" alt="Beyond Backgrounds Image">
     
-    <!-- Title text (replace 'Beyond Backgrounds' with your desired title) -->
+    <!-- Scrolling text -->
     <div class="scrolling-title">Beyond Backgrounds</div>
     <div class="navigation">
         <ul>
             <li><a href="/login">Login</a></li>
             <li><a href="/register/recruiter">Recruiter Register</a></li>
-            <li><a href="/JobPortal">Job Portal</a></li>
             <li><a href="/about">About</a></li>
+            <li><a href="/">Logout</a></li>
 
         </ul>
     </div>
      
-    <!-- Box 1 -->
+    <!-- Job Postings -->
     <div class="box" onmouseover="highlightBox(this)" onmouseout="unhighlightBox(this)">
         <h2><a href="/JobPostings">Job Postings</a></h2>
         <p>Please click on the link to post job offerings.</p>
     </div>
 
-    <!-- Box 2 -->
-    <div class="box" onmouseover="highlightBox(this)" onmouseout="unhighlightBox(this)">
-        <h2><a href="/JobPortal">Portal</a></h2>
-        <p>Please click on the link to view the portal.</p>
-    </div>
-
-    <!-- Box 3 -->
+    <!-- Filter Applicants -->
     <div class="box" onmouseover="highlightBox(this)" onmouseout="unhighlightBox(this)">
         <h2><a href="/filter_applicants">Filter Candidates</a></h2>
         <p>Please click on the link to filter candidates.</p>

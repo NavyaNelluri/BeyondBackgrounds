@@ -1,10 +1,11 @@
+<!-- Applicant Homepage -->
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="{{ url_for('static', filename='register.css') }}">
-    <title>Register - BeyondBackgrounds</title>
+    <title>Dashboard - BeyondBackgrounds</title>
     <style>
         /* Style for the rectangular boxes */
         .box {
@@ -21,10 +22,10 @@
     </style>
 </head>
 <body>
-    <!-- Header Image (replace 'pic2.jpg' with your image filename) -->
+    <!-- Header Image  -->
     <img class="header-image" src="{{ url_for('static', filename='Wallpaper.jpg') }}" alt="Beyond Backgrounds Image">
     
-    <!-- Title text (replace 'Beyond Backgrounds' with your desired title) -->
+    <!-- Scrolling Title -->
     <div class="scrolling-title">Beyond Backgrounds</div>
     <div class="navigation">
         <ul>
@@ -34,13 +35,13 @@
         </ul>
     </div>
      
-    <!-- Box 1 -->
+    <!-- Option to enter Applicant Details -->
     <div class="box" onmouseover="highlightBox(this)" onmouseout="unhighlightBox(this)">
         <h2><a href="/ApplicantDetails">Applicant Details</a></h2>
-        <p>Please click on the link to post job offerings.</p>
+        <p>Please click here to enter your details.</p>
     </div>
 
-    <!-- Box 3 -->
+    <!-- Find Jobs -->
     <div class="box" onmouseover="highlightBox(this)" onmouseout="unhighlightBox(this)" onclick="redirectToJobPortal()">
         <h2><a href="/JobPortal">Find Jobs</a></h2>
         <p>Please click on the link to find jobs.</p>
@@ -48,13 +49,13 @@
 
     <script>
         function highlightBox(box) {
-            box.style.backgroundColor = "lightcoral"; // Change the background color on hover
-            box.style.transform = "scale(1.05)"; // Slight increase in size on hover
+            box.style.backgroundColor = "lightcoral"; 
+            box.style.transform = "scale(1.05)"; 
         }
 
         function unhighlightBox(box) {
-            box.style.backgroundColor = "bisque"; // Restore the original background color
-            box.style.transform = "scale(1)"; // Restore the original size
+            box.style.backgroundColor = "bisque"; 
+            box.style.transform = "scale(1)"; 
         }
 
         function redirectToJobPortal() {

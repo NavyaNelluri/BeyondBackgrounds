@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Postings - BeyondBackgrounds</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='register.css') }}">
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px auto; /* Adjust margin as needed */
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+
+        tr:nth-child(even) {
+            background-color: beige;
+        }
+
+        tr:nth-child(odd) {
+            background-color: white;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .apply-link {
+            text-decoration: none;
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+    <div class="navigation">
+        <ul>
+            <li><a href="/">Logout</a></li>
+            <li><a href="/about">About</a></li>
+        </ul>
+        <div class="scrolling-title">Beyond Backgrounds</div>
+    </div>
+	{% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="flashes">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+    <br>
+    <br>
+    <table>
+        <tr>
+            <th>ApplicationID</th>
+            <th>JobID</th>
+            <th>ApplicantUsername</th>
+            <th>ApplicationDate</th>
+        </tr>
+        {% for job in jobs %}
+        <tr>
+            <td>{{ job[0] }}</td>
+            <td>{{ job[1] }}</td>
+            <td>{{ job[2] }}</td>
+            <td>{{ job[3] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

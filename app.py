@@ -308,6 +308,27 @@ def JobPortal():
         print(e)
         app.logger.error(f"An error occurred: {str(e)}")
         flash('An error occurred. Please try again later.', 'error')
+        
+@app.route('/AppliedJobs')
+def AppliedJobs():
+  try:
+        # Create a Snowflake connection
+        conn = create_snowflake_connection()
+
+        # Execute an SQL select statement using the Snowflake connection
+        cursor = conn.cursor()
+        query = "SELECT * FROM AppliedJobs"
+        cursor.execute(query)
+        jobs = cursor.fetchall()
+
+        cursor.close()
+        conn.close()
+        print(jobs)
+        return render_template('AppliedJobs.html', jobs=jobs)
+  except Exception as e:
+        print(e)
+        app.logger.error(f"An error occurred: {str(e)}")
+        flash('An error occurred. Please try again later.', 'error')
 @app.route('/filter_applicants', methods=['GET', 'POST'])
 def filter_applicants():
     try:
@@ -416,7 +437,24 @@ def apply_for_job(job_id):
     try:
         # Your logic to handle the job application using the job_id
         # This could involve updating the database, logging the application, etc.
-        
+        conn = create_snowflake_connection()
+        cursor = conn.cursor()
+        username = session.get('username')
+        insert_query = """
+        INSERT INTO AppliedJobs (JobID, ApplicantUsername, ApplicationDate)
+        VALUES
+            ('{}', '{}', CURRENT_TIMESTAMP());
+        """.format(job_id, username)
+        print(insert_query)
+        # Execute the insert query
+        cursor.execute(insert_query)
+
+        # Commit the transaction
+        conn.commit()
+
+        # Close the Snowflake connection
+        conn.close()
+
         flash('Application submitted successfully!', 'success')
         return redirect(url_for('JobPortal'))
 

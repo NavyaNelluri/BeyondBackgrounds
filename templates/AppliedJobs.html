@@ -57,17 +57,10 @@
     <br>
     <table>
         <tr>
-            <th>Company Name</th>
-            <th>Locations</th>
-            <th>Email</th>
-            <th>Job Position</th>
-            <th>Salary</th>
-            <th>Benefits</th>
-            <th>Shift Timings</th>
-            <th>Offence Exemptions</th>
-            <th>Notes</th>
-            <th>Mandatory Criminal Record</th>
-            <th>Action</th>
+            <th>ApplicationID</th>
+            <th>JobID</th>
+            <th>ApplicantUsername</th>
+            <th>ApplicationDate</th>
         </tr>
         {% for job in jobs %}
         <tr>
@@ -75,15 +68,6 @@
             <td>{{ job[1] }}</td>
             <td>{{ job[2] }}</td>
             <td>{{ job[3] }}</td>
-            <td>{{ job[4] }}</td>
-            <td>{{ job[5] }}</td>
-            <td>{{ job[6] }}</td>
-            <td>{{ job[7] }}</td>
-            <td>{{ job[8] }}</td>
-            <td>{{ job[9] }}</td>
-            <td>
-                <a class="apply-link" href="{{ url_for('apply_for_job', job_id=job[0]) }}">Apply</a>
-            </td>
         </tr>
         {% endfor %}
     </table>

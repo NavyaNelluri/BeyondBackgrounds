@@ -1,10 +1,3 @@
-'''
-The app.py file has all the methods and the routing information that are responsible for 
-the functionality of the Beyond Backgrounds website.
-
-'''
-
-#import required libraries
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 import snowflake.connector
 
@@ -13,7 +6,7 @@ app.secret_key = 'navya'
 
 app.error_message = None
 
-#Method to create a Snowflake connection
+# Function to create a Snowflake connection
 def create_snowflake_connection():
     snowflake_config = {
         'account': 'xjtvekn-em26794',
@@ -32,7 +25,7 @@ def create_snowflake_connection():
         print("Snowflake Connection Error:", str(e))
         raise e
 
-#Registration route
+
 @app.route('/register/<user_type>', methods=['GET', 'POST'])
 def register(user_type):
     if user_type == 'recruiter':
@@ -101,7 +94,7 @@ def register(user_type):
         return render_template('applicant_register.html')
 
 
-#Login Page
+#login page to enter username and password
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -150,7 +143,7 @@ def check_credentials(username, password):
         print(e)
         return False
     
-#Method to return the user type
+#Checks the provided crendentials for authentication
 def get_usertype(username):
     try:
         # Database connection establishment 
@@ -175,7 +168,27 @@ def get_usertype(username):
         return None
 
 
-#Job postings
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
+@app.route('/Recruiter_home')
+def Recruiter_home():
+    return render_template('Recruiter_home.html')
+
+@app.route('/Applicant_home')
+def Applicant_home():
+    return render_template('Applicant_home.html')
+
+@app.route('/')
+def home():
+    return render_template('home.html')
+
+@app.route('/applicant/dashboard')
+def applicant_dashboard():
+    return render_template('applicant_dashboard.html')
+
+  
 @app.route('/job_postings', methods=['POST'])
 def job_postings():
     if request.method == 'POST':
@@ -224,13 +237,8 @@ VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
  
     return redirect(url_for('JobPostingsPage'))
 
-#Applicant details route
 @app.route('/Applicant_Details', methods=['POST'])
 def Applicant_Details():
-    '''
-    This method takes the user details and stores in the datatbase
-    
-    '''
     if request.method == 'POST':
         try:
             # Extract job details from the form
@@ -280,12 +288,8 @@ VALUES (%s, %s, %s,%s, %s, %s, %s, %s, %s, %s, %s)
  
     return redirect(url_for('ApplicantDetailsPage'))
 
-#Job Portal route
 @app.route('/JobPortal')
 def JobPortal():
-  '''
-  This method fetches all the available job from the database
-  '''
   try:
         # Create a Snowflake connection
         conn = create_snowflake_connection()
@@ -304,13 +308,29 @@ def JobPortal():
         print(e)
         app.logger.error(f"An error occurred: {str(e)}")
         flash('An error occurred. Please try again later.', 'error')
+        
+@app.route('/AppliedJobs')
+def AppliedJobs():
+  try:
+        # Create a Snowflake connection
+        conn = create_snowflake_connection()
 
-#Filter applicants route
+        # Execute an SQL select statement using the Snowflake connection
+        cursor = conn.cursor()
+        query = "SELECT * FROM AppliedJobs"
+        cursor.execute(query)
+        jobs = cursor.fetchall()
+
+        cursor.close()
+        conn.close()
+        print(jobs)
+        return render_template('AppliedJobs.html', jobs=jobs)
+  except Exception as e:
+        print(e)
+        app.logger.error(f"An error occurred: {str(e)}")
+        flash('An error occurred. Please try again later.', 'error')
 @app.route('/filter_applicants', methods=['GET', 'POST'])
 def filter_applicants():
-    """
-    This method filters the applicants based on the option provided
-    """
     try:
         if request.method == 'POST':
             # Retrieve filter parameters from the form
@@ -358,42 +378,37 @@ def filter_applicants():
 
 
 def get_user_details(username):
-    '''
-    Method to get the applicant info from the database for the provided username
-    '''
-    #Database connection
+    # Replace the connection details with your database connection
     conn = create_snowflake_connection()
     cursor = conn.cursor()
 
-    #Fetch Applicant Info from the database
+    # Assuming there's a 'users' table with columns 'name', 'email', etc.
     cursor.execute("SELECT name, gender, contact_number, email,skills, expected_salary, current_employer, \
                    preferred_location, criminal_record, reason  FROM JOBAPPLICANTS WHERE name = %s", (username,))  # Change the query as needed
     user_details = cursor.fetchone()
+
     conn.close()
+
     return user_details
 
 
 def update_user_details(username, field, new_value):
-    '''
-    Method to update applicant info.
-    Note: Name and gender fields cannot be edited.
-    '''
-    #Database connection
     conn = create_snowflake_connection()
     cursor = conn.cursor()
     if field != 'name' and field != 'gender':
-        #Update Applicant Info
         update_query = f"UPDATE jobapplicants SET {field} = %s WHERE name = %s"
         cursor.execute(update_query, (new_value, username))
     conn.commit()
     conn.close()
 
-#Update Applicant Info route 
+@app.route('/UserProfile')
+def user_profile():
+    username = session.get('username')
+    user_details = get_user_details(username)
+    return render_template('UserProfile.html', user_details=user_details)
+
 @app.route('/update_profile', methods=['POST'])
 def update_profile():
-    '''
-    Method to get the information from the user profile webpage to update the information
-    '''
     if request.method == 'POST':
         username = session.get('username')
         updated_fields = ['email', 'contact_number', 'skills', 'expected_salary', 'current_employer', 'preferred_location']
@@ -405,44 +420,49 @@ def update_profile():
     else:
         return redirect(url_for('user_profile'))
 
-#About route
-@app.route('/about')
-def about():
-    return render_template('about.html')
-
-#Recruiter home route
-@app.route('/Recruiter_home')
-def Recruiter_home():
-    return render_template('Recruiter_home.html')
-
-#Applicant home route
-@app.route('/Applicant_home')
-def Applicant_home():
-    return render_template('Applicant_home.html')
-
-#Start page route
-@app.route('/')
-def home():
-    return render_template('home.html')
-
-#Applicant Info route
-@app.route('/UserProfile')
-def user_profile():
-    username = session.get('username')
-    user_details = get_user_details(username)
-    return render_template('UserProfile.html', user_details=user_details)
-
-#Job Postings route
+@app.route('/recruiter/dashboard')
+def recruiter_dashboard():
+    return render_template('recruiter_dashboard.html')
+    
 @app.route('/JobPostings')
 def JobPostingsPage():
     return render_template('JobPostings.html')
 
-#Applicant Details route
 @app.route('/ApplicantDetails')
 def ApplicantDetailsPage():
     return render_template('ApplicantDetails.html')
     
+@app.route('/apply_for_job/<job_id>')
+def apply_for_job(job_id):
+    try:
+        # Your logic to handle the job application using the job_id
+        # This could involve updating the database, logging the application, etc.
+        conn = create_snowflake_connection()
+        cursor = conn.cursor()
+        username = session.get('username')
+        insert_query = """
+        INSERT INTO AppliedJobs (JobID, ApplicantUsername, ApplicationDate)
+        VALUES
+            ('{}', '{}', CURRENT_TIMESTAMP());
+        """.format(job_id, username)
+        print(insert_query)
+        # Execute the insert query
+        cursor.execute(insert_query)
+
+        # Commit the transaction
+        conn.commit()
+
+        # Close the Snowflake connection
+        conn.close()
+
+        flash('Application submitted successfully!', 'success')
+        return redirect(url_for('JobPortal'))
+
+    except Exception as e:
+        # Handle exceptions if necessary
+        print(e)
+        flash('An error occurred. Please try again later.', 'error')
+        return redirect(url_for('JobPortal'))
+    
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=80)
-
-
+    app.run(debug=True)

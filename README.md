@@ -64,5 +64,5 @@ categories like criminal record or skill set.
 
 ## Information for future development:
 1.Possible Enhancements:
-   Addition of more filters to filter the applicants.
-   Can implement machine learning algorithm to predict the selection of resume.
+   1.1 Addition of more filters to filter the applicants.
+   1.2 Can implement machine learning algorithm to predict the selection of resume.

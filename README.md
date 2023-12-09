@@ -62,7 +62,7 @@ categories like criminal record or skill set.
    
    Run the app.py file in terminal by using the command : python app.py
    
-   You can access the application in the localhost port 80.
+   You can access the application in the localhost.
    
 2.Running application using docker file.
 

@@ -46,7 +46,7 @@ body {
     margin: 50px auto;
     padding: 20px;
     text-align: center;
-    transform: translate(50%, -150%); /* Adjust the left value to move it to the right */
+    transform: translate(50%, -110%); /* Adjust the left value to move it to the right */
     z-index: 1; /* Bring the container to the foreground */
 }
 

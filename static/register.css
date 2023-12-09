@@ -1,6 +1,6 @@
 /* Style for the image */
 .header-image {
-    width: 1000px;
+    width: 1300px;
     height: 600px;
     position: relative;
     margin-top: -50px;
@@ -50,18 +50,6 @@ body {
     z-index: 1; /* Bring the container to the foreground */
 }
 
-.login {
-    background-color:#FFFFFF;
-    border: 1px solid #2d2727;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    max-width: 400px;
-    margin: 50px auto;
-    padding: 20px;
-    text-align: center;
-    transform: translate(50%, -150%); /* Adjust the left value to move it to the right */
-    z-index: 1; /* Bring the container to the foreground */
-}
 
 h2 {
     color: #333;

@@ -63,9 +63,9 @@ categories like criminal record or skill set.
 
    Docker file is provided to built & run the image for the application.
    
-   Build Command:  docker build -t <image_name>:<tag_version>
+   Build Command:  docker build -t <image_name> : <tag_version>
    
-   Run command : docker run -p 80:80 --name <container_name> <image_name>:<tag_version>
+   Run command : docker run -p 80:80 --name <container_name> <image_name> : <tag_version>
    
    After successful execution of above commands,the application is available at localhost port 80
 

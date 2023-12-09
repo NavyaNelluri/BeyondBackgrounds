@@ -45,4 +45,34 @@ categories like criminal record or skill set.
 2. Framework for mapping process
 3. Connection to Database.
 
+## Instructions for setting up a development environment:
+1. To run our application, python development environment is required.
+2. The required libraries to run our application are mentioned in the requirements.txt file.
 
+
+## Steps to build and run your application:
+1. Run application in python environment.
+   
+   After setting up the python environment and installing all the necessary packages and libraries,
+   
+   Run the app.py file in terminal by using the command : python app.py
+   
+   You can access the application in the localhost port 80.
+   
+2.Running application using docker file.
+
+   Docker file is provided to built & run the image for the application.
+   
+   Build Command:  docker build -t <image_name> : <tag_version>
+   
+   Run command : docker run -p 80:80 --name <container_name> <image_name> : <tag_version>
+   
+   After successful execution of above commands,the application is available at localhost port 80
+
+
+## Information for future development:
+1.Possible Enhancements:
+
+   1.1 Addition of more filters to filter the applicants.
+   
+   1.2 Can implement machine learning algorithm to predict the selection of resume.
